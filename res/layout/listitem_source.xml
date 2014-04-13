@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@id/txtBname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5.0dip"
+        android:paddingTop="5.0dip"
+        android:text="站西钟表城"
+        android:textSize="20.0dip" />
+
+    <TextView
+        android:id="@id/txtAddress"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/txtBname"
+        android:layout_marginRight="20.0dip"
+        android:maxLines="2"
+        android:paddingBottom="5.0dip"
+        android:paddingLeft="5.0dip"
+        android:paddingTop="10.0dip"
+        android:text="广东省广州市白云区石井街道凰岗路口广大鞋城"
+        android:textColor="#ff626161"
+        android:textSize="14.0dip" />
+
+    <ImageView
+        android:id="@id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/txtAddress"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/jiantou" />
+
+</RelativeLayout>

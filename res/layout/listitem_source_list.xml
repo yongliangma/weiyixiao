@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5.0dip"
+        android:paddingTop="5.0dip"
+        android:text="国大4030 \u0020皇后鞋柜"
+        android:textSize="20.0dip" />
+
+    <ImageView
+        android:id="@id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/txtMiaoShu"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/jiantou" />
+
+    <TextView
+        android:id="@id/txtMiaoShu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/txtTitle"
+        android:layout_toLeftOf="@id/imageView1"
+        android:maxLines="2"
+        android:paddingBottom="5.0dip"
+        android:paddingLeft="5.0dip"
+        android:text="本店主营各种品质包包，皮具，车载香水等等"
+        android:textColor="#ff626161"
+        android:textSize="14.0dip" />
+
+</RelativeLayout>

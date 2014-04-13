@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@id/txtMiaoShu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnRegister"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@id/btnRegister"
+        android:layout_below="@id/btnRegister"
+        android:text=""
+        android:textSize="18.0dip" />
+
+    <EditText
+        android:id="@id/txtConfrim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txtPsd"
+        android:layout_alignRight="@id/txtPsd"
+        android:layout_below="@id/txtPsd"
+        android:layout_marginTop="5.0dip"
+        android:background="@drawable/text"
+        android:drawableLeft="@drawable/input_cpsd"
+        android:ems="10"
+        android:hint="点击再次输入密码"
+        android:maxLength="15"
+        android:password="true"
+        android:textSize="18.0dip" />
+
+    <EditText
+        android:id="@id/txt_tell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txtConfrim"
+        android:layout_alignRight="@id/txtConfrim"
+        android:layout_below="@id/txtConfrim"
+        android:layout_marginTop="5.0dip"
+        android:background="@drawable/text"
+        android:drawableLeft="@drawable/input_tell"
+        android:ems="10"
+        android:hint="点击输入手机号码"
+        android:maxLength="11"
+        android:numeric="integer"
+        android:textSize="18.0dip" />
+
+    <Button
+        android:id="@id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txt_tell"
+        android:layout_alignRight="@id/txt_tell"
+        android:layout_below="@id/txt_tell"
+        android:layout_marginTop="5.0dip"
+        android:onClick="btnRegisterClick"
+        android:background="@drawable/btn_register_in_reg"
+        android:text="点击此处提交注册信息" />
+
+    <EditText
+        android:id="@id/txtName"
+        android:layout_width="340.0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:background="@drawable/text"
+        android:drawableLeft="@drawable/input_name"
+        android:ems="10"
+        android:hint="点击输入用户名"
+        android:inputType="textUri"
+        android:maxLength="15"
+        android:textSize="18.0dip" />
+
+    <EditText
+        android:id="@id/txtPsd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txtName"
+        android:layout_alignRight="@id/txtName"
+        android:layout_below="@id/txtName"
+        android:layout_marginTop="5.0dip"
+        android:background="@drawable/text"
+        android:drawableLeft="@drawable/input_psd"
+        android:ems="10"
+        android:hint="点击输入密码"
+        android:maxLength="15"
+        android:password="true"
+        android:textSize="18.0dip" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>

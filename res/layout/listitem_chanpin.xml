@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/list_bg"
+    android:orientation="vertical"
+    android:paddingBottom="2.0dip" >
+
+    <LinearLayout
+        android:id="@id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
+
+            <ImageView
+                android:id="@id/img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="9.0dip"
+                android:paddingRight="3.0dip"
+                android:paddingTop="9.0dip"
+                android:src="@drawable/bg" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@id/txtTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/linearLayout1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="5.0dip"
+        android:paddingTop="5.0dip"
+        android:text="ItemTitle"
+        android:textSize="15.0dip" />
+
+    <TextView
+        android:id="@id/txtContent"
+        android:layout_width="wrap_content"
+        android:layout_height="55.0dip"
+        android:layout_alignLeft="@id/txtTitle"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/txtTitle"
+        android:ellipsize="end"
+        android:lineSpacingExtra="2.0dip"
+        android:maxLines="3"
+        android:paddingRight="5.0dip"
+        android:text="TextView"
+        android:textColor="#ff5c5b5b"
+        android:textSize="14.0dip" />
+
+    <TextView
+        android:id="@id/txtGet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="点击获取更多数据"
+        android:textSize="18.0dip" />
+
+    <TextView
+        android:id="@id/txtRiQi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtContent"
+        android:layout_toRightOf="@id/linearLayout1"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
+        android:paddingRight="5.0dip"
+        android:paddingTop="3.0dip"
+        android:text="saasasas"
+        android:textSize="14.0dip" />
+
+    <Button
+        android:id="@id/btnXiangQing"
+        android:layout_width="wrap_content"
+        android:layout_height="35.0dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="7.0dip"
+        android:layout_marginTop="6.0dip"
+        android:background="@drawable/xiangqing_on"
+        android:focusable="false"
+        android:text="详情"
+        android:textColor="#ffffffff" />
+
+</RelativeLayout>

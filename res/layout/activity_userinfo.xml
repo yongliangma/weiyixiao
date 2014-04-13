@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@id/txtDaoQi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txtShenFen"
+        android:layout_alignRight="@id/txtShenFen"
+        android:layout_below="@id/txtShenFen"
+        android:background="@drawable/text"
+        android:gravity="center_vertical"
+        android:paddingLeft="15.0dip"
+        android:text="到期时间：2014-01-14"
+        android:textSize="18.0dip" />
+
+    <Button
+        android:id="@id/btnCloseSy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txtDaoQi"
+        android:layout_alignRight="@id/txtDaoQi"
+        android:layout_below="@id/txtDaoQi"
+        android:background="@drawable/long_button"
+        android:gravity="left|center"
+        android:padding="10.0dip"
+        android:text="关闭图片水印" />
+
+    <Button
+        android:id="@id/btnStartSy"
+        android:layout_width="282.0dip"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnCloseSy"
+        android:layout_alignRight="@id/btnCloseSy"
+        android:layout_below="@id/btnCloseSy"
+        android:background="@drawable/long_button"
+        android:gravity="left|center"
+        android:padding="10.0dip"
+        android:text="开启图片水印" />
+
+    <Button
+        android:id="@id/btnClearMemory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnStartSy"
+        android:layout_alignRight="@id/btnStartSy"
+        android:layout_below="@id/btnStartSy"
+        android:background="@drawable/long_button"
+        android:gravity="left|center"
+        android:padding="10.0dip"
+        android:text="清理缓存垃圾" />
+
+    <Button
+        android:id="@id/btnBackLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnClearMemory"
+        android:layout_alignRight="@id/btnClearMemory"
+        android:layout_below="@id/btnClearMemory"
+        android:background="@drawable/long_button"
+        android:gravity="left|center"
+        android:padding="10.0dip"
+        android:text="返回登录"
+        android:textColor="#ff0032ff" />
+
+    <TextView
+        android:id="@id/txtUname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5.0dip"
+        android:layout_marginTop="5.0dip"
+        android:background="@drawable/text"
+        android:gravity="center_vertical"
+        android:paddingLeft="15.0dip"
+        android:text="亲爱的：123456"
+        android:textSize="18.0dip" />
+
+    <TextView
+        android:id="@id/txtShenFen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txtUname"
+        android:layout_alignRight="@id/txtUname"
+        android:layout_below="@id/txtUname"
+        android:background="@drawable/text"
+        android:gravity="center_vertical"
+        android:paddingLeft="15.0dip"
+        android:text="您当前是：正式用户"
+        android:textSize="18.0dip" />
+
+    <Button
+        android:id="@id/btnExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnBackLogin"
+        android:layout_alignRight="@id/btnBackLogin"
+        android:layout_below="@id/btnBackLogin"
+        android:background="@drawable/long_button"
+        android:gravity="left|center"
+        android:padding="10.0dip"
+        android:text="退出应用程序"
+        android:textColor="#ffff0000" />
+
+</RelativeLayout>

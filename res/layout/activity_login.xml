@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <EditText
+        android:id="@id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/text"
+        android:drawableLeft="@drawable/tlb_uname"
+        android:ems="10"
+        android:maxLength="15"
+        android:textSize="22.0dip" />
+
+    <EditText
+        android:id="@id/txtPsd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txtName"
+        android:layout_below="@id/txtName"
+        android:layout_marginTop="5.0dip"
+        android:background="@drawable/text"
+        android:drawableLeft="@drawable/tlb_psd"
+        android:ems="10"
+        android:maxLength="15"
+        android:password="true"
+        android:textSize="22.0dip" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@id/btnRegister"
+        android:layout_width="160.0dip"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txtPsd"
+        android:layout_below="@id/txtPsd"
+        android:layout_marginTop="6.0dip"
+        android:background="@drawable/btn_register"
+        android:onClick="btnRegisterClick"
+        android:text="立即注册" />
+
+    <Button
+        android:id="@id/btnLogin"
+        android:layout_width="160.0dip"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/scrollView1"
+        android:layout_alignRight="@id/txtPsd"
+        android:layout_toRightOf="@id/btnRegister"
+        android:background="@drawable/btn_login"
+        android:onClick="btnLoginClick"
+        android:text="登录" />
+
+    <ScrollView
+        android:id="@id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnRegister"
+        android:layout_below="@id/btnRegister" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@id/txtShenMing"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="TextView"
+                android:textSize="16.0dip" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

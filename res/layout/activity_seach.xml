@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:configChanges="keyboardHidden|orientation"
+    android:orientation="vertical"
+    android:windowSoftInputMode="stateHidden" >
+
+    <ScrollView
+        android:id="@id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:focusable="false" />
+
+    <TextView
+        android:id="@id/config_hidden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/imageView2" >
+
+        <ScrollView
+            android:layout_width="102.0dip"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@id/clazzLayout"
+                android:layout_width="100.0dip"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <ScrollView
+            android:id="@id/scrollView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@id/txtId"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40.0dip"
+                    android:background="@drawable/text"
+                    android:ems="10"
+                    android:focusable="true"
+                    android:hint="输入关键字或商品编号"
+                    android:maxLines="1"
+                    android:paddingLeft="5.0dip"
+                    android:textSize="20.0dip" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@id/btnFind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40.0dip"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/btn_in_search"
+                        android:gravity="left|center"
+                        android:onClick="findChanPin"
+                        android:paddingLeft="10.0dip"
+                        android:text="查询结果" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <Spinner
+                        android:id="@id/spRenQun"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45.0dip" />
+
+                    <Spinner
+                        android:id="@id/spPinPai"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45.0dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@id/shuxingLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <Button
+                    android:id="@id/btnFindCodition"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40.0dip"
+                    android:background="@drawable/long_button"
+                    android:gravity="left|center"
+                    android:onClick="findChanPinCodition"
+                    android:paddingLeft="10.0dip"
+                    android:text="筛选条件查询"
+                    android:textColor="#ff0024ff" />
+
+                <Button
+                    android:id="@id/btnClear"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40.0dip"
+                    android:background="@drawable/btn_in_search"
+                    android:gravity="left|center"
+                    android:onClick="clearClick"
+                    android:paddingLeft="10.0dip"
+                    android:text="清除所选属性"
+                    android:textColor="#ffff0000" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="2.0dip"
+        android:src="@drawable/clazz_title" />
+
+</RelativeLayout>
