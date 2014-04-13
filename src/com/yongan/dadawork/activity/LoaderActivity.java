@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.yongan.dadawork.R;
 import com.yongan.dadawork.service.UserService;
 import com.yongan.dadawork.utils.Config;
+import com.yongan.dadawork.utils.ToolUtils;
 import com.google.gson.Gson;
 
 public class LoaderActivity extends BaseActivity {
@@ -34,26 +35,26 @@ public class LoaderActivity extends BaseActivity {
 	}
 
 	private void startLoad() {
-		SharedPreferences localSharedPreferences = getSharedPreferences(
-				"userinfo", Context.MODE_PRIVATE);
-		getApp().setUuid(localSharedPreferences.getString("uuid", ""));
-		getApp().setUname(localSharedPreferences.getString("uname", ""));
-		getApp().setPsd(localSharedPreferences.getString("psd", ""));
+		SharedPreferences spf = getSharedPreferences("userinfo",
+				Context.MODE_PRIVATE);
+		getApp().setUuid(spf.getString("uuid", ""));
+		getApp().setUname(spf.getString("uname", ""));
+		getApp().setPsd(spf.getString("psd", ""));
 		if ("".equals(getApp().getUuid())) {
 			// getApp().setUuid(Installation.id(this));
-			getApp().setUuid("1233jkjekwendmks");
+			getApp().setUuid(ToolUtils.getIMEI(getApplicationContext()));
 		}
-		getApp().setUrl("http://115.28.17.18:8080/");
+		// getApp().setUrl("http://115.28.17.18:8080/");
+		getApp().setUrl("http://weiyixiao.aliapp.com/service/interface/");
 		readConfig();
 	}
 
 	private void loadData() {
-		// 检测版本更新
 		if (getApp().getConfig() == null) {
 			Toast.makeText(this, "网络连接异常", Toast.LENGTH_SHORT).show();
 			finish();
 		} else {
-			if (getApp().localBanBen < getApp().getConfig().serverBanBen) {
+			if (getApp().localBanBen < getApp().getConfig().serverBanBen) {// 检测版本更新
 				startActivity(new Intent(this, UpdateActivity.class));
 				finish();
 			} else {

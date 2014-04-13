@@ -37,22 +37,20 @@ public class UserService {
 
 	public void register(String uname, String password, String tell,
 			String uuid, Object context, String method) {
-		HashMap<String, String> localHashMap = new HashMap<String,String>();
-		localHashMap.put("interface", "userRegister");
-		localHashMap.put("uname", uname);
-		localHashMap.put("uuid", uuid);
-		localHashMap.put("psd", password);
-		localHashMap.put("tell", tell);
-//		HttpUtils.executePost(context, method, ServiceName.getInterface(),
-//				localHashMap);
+		HashMap<String, String> hashmap = new HashMap<String,String>();
+		hashmap.put("interface", "userRegister");
+		hashmap.put("uname", uname);
+		hashmap.put("uuid", uuid);
+		hashmap.put("psd", password);
+		hashmap.put("tell", tell);
 		HttpUtils.executePost(context, method, ServiceName.registerUrl,
-				localHashMap);
+				hashmap);
 	}
 	
 	public void readConfig(Object context, String method) {
 		HashMap<String, String> localHashMap = new HashMap<String,String>();
 		localHashMap.put("interface", "config");
-		HttpUtils.executePost(context, method, ServiceName.getInterface(),
+		HttpUtils.executePost(context, method, ServiceName.configUrl,
 				localHashMap);
 	}
 	

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
+//待完善
 public class UpdateActivity extends BaseActivity {
 	private TextView txtLoad;
 	private Handler uiHandler = new Handler();

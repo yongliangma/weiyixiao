@@ -9,4 +9,8 @@ public class ServiceName {
 
 	public static final String HOSTNAME = "http://weiyixiao.aliapp.com/service/interface/";;
 	public static final String registerUrl = HOSTNAME + "userRegister";
+	public static final String configUrl = HOSTNAME + "config";
+	
+	
+	
 }

@@ -27,8 +27,8 @@
         android:drawableLeft="@drawable/input_cpsd"
         android:ems="10"
         android:hint="点击再次输入密码"
+        android:inputType="textPassword"
         android:maxLength="15"
-        android:password="true"
         android:textSize="18.0dip" />
 
     <EditText
@@ -43,8 +43,8 @@
         android:drawableLeft="@drawable/input_tell"
         android:ems="10"
         android:hint="点击输入手机号码"
+        android:inputType="phone"
         android:maxLength="11"
-        android:numeric="integer"
         android:textSize="18.0dip" />
 
     <Button
@@ -55,8 +55,8 @@
         android:layout_alignRight="@id/txt_tell"
         android:layout_below="@id/txt_tell"
         android:layout_marginTop="5.0dip"
-        android:onClick="btnRegisterClick"
         android:background="@drawable/btn_register_in_reg"
+        android:onClick="btnRegisterClick"
         android:text="点击此处提交注册信息" />
 
     <EditText
@@ -86,8 +86,8 @@
         android:drawableLeft="@drawable/input_psd"
         android:ems="10"
         android:hint="点击输入密码"
+        android:inputType="textPassword"
         android:maxLength="15"
-        android:password="true"
         android:textSize="18.0dip" >
 
         <requestFocus />

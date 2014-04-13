@@ -2,7 +2,6 @@ package com.yongan.dadawork.utils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,10 +10,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ContentBody;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -50,18 +45,6 @@ public class HttpPostThread extends Thread {
 							.get(key)));
 				}
 				httpPost.setEntity(new UrlEncodedFormEntity(arrayList, "UTF-8"));
-
-//				MultipartEntity mpEntity = new MultipartEntity();
-//				Iterator<String> localIterator = data.keySet().iterator();
-//				while (localIterator.hasNext()) {
-//					String key = (String) localIterator.next();
-//					mpEntity.addPart(
-//							key,
-//							new StringBody(((String) data.get(key)), Charset
-//									.forName(DEFAULT_CHARSET)
-//							));
-//				}
-//				httpPost.setEntity(mpEntity);
 				HttpResponse httpResponse = new DefaultHttpClient()
 						.execute(httpPost);
 				if (httpResponse.getStatusLine().getStatusCode() == 200) {

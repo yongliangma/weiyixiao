@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ public class RegisterActity extends BaseActivity {
 	private EditText txtPsd;
 	private EditText txtTell;
 
-	private Button btnRegister;
 	private TextView txtMiaoShu;
 
 	protected void onCreate(Bundle paramBundle) {
@@ -35,7 +33,6 @@ public class RegisterActity extends BaseActivity {
 		txtPsd = ((EditText) findViewById(R.id.txtPsd));
 		txtConfrim = ((EditText) findViewById(R.id.txtConfrim));
 		txtTell = ((EditText) findViewById(R.id.txt_tell));
-		btnRegister = (Button) findViewById(R.id.btnRegister);
 		txtMiaoShu = ((TextView) findViewById(R.id.txtMiaoShu));
 		txtMiaoShu.setText(Html.fromHtml(getApp().getConfig().seachText));
 	}
@@ -66,8 +63,8 @@ public class RegisterActity extends BaseActivity {
 					true);
 			View localView = progressDialog.getWindow().getDecorView();
 			getApp().setViewFontSize(localView, 20);
-			this.progressDialog.setCancelable(true);
-			this.progressDialog.setIcon(R.drawable.ic_launcher);
+			progressDialog.setCancelable(true);
+			progressDialog.setIcon(R.drawable.ic_launcher);
 			UserService.getInstans().register(uname, cpsd, tell,
 					getApp().getUuid(), this, "registerHandler");
 		}
@@ -75,15 +72,15 @@ public class RegisterActity extends BaseActivity {
 
 	public void registerHandler(String jsonString) {
 		progressDialog.dismiss();
-		ObjectVo localObjectVo = (ObjectVo) new Gson().fromJson(jsonString,
+		ObjectVo objectVo = (ObjectVo) new Gson().fromJson(jsonString,
 				ObjectVo.class);
-		if (localObjectVo.code == 0) {
+		if (objectVo.code == 0) {
 			Toast.makeText(this, "注册成功！您当前为试用用户！", Toast.LENGTH_LONG).show();
 			getApp().setUname(uname);
 			getApp().setPsd(psd);
 			finish();
 		} else {
-			Toast.makeText(this, localObjectVo.msg, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, objectVo.msg, Toast.LENGTH_LONG).show();
 		}
 	}
 

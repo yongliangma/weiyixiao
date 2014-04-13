@@ -1,14 +1,10 @@
 package com.yongan.dadawork.activity;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.Process;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.yongan.dadawork.entity.LeiXing;
-import com.yongan.dadawork.entity.Link;
 import com.yongan.dadawork.entity.PinPai;
 import com.yongan.dadawork.entity.XingBie;
 import com.yongan.dadawork.utils.Config;
@@ -16,7 +12,6 @@ import com.yongan.dadawork.vo.LoginVo;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -51,11 +46,11 @@ public class OurApplication extends Application {
 		return true;
 	}
 
-	private void savaObject(String paramString, Object paramObject) {
-		SharedPreferences.Editor localEditor = getSharedPreferences("userinfo",
-				0).edit();
-		localEditor.putString(paramString, new Gson().toJson(paramObject));
-		localEditor.commit();
+	private void savaObject(String key, Object object) {
+		SharedPreferences.Editor edit = getSharedPreferences("userinfo", 0)
+				.edit();
+		edit.putString(key, new Gson().toJson(object));
+		edit.commit();
 	}
 
 	public void exitApp() {
@@ -137,16 +132,15 @@ public class OurApplication extends Application {
 	}
 
 	public String getPsd() {
-		if ("".equals(this.psd))
-			this.psd = getSharedPreferences("userinfo", 0).getString("psd", "");
-		return this.psd;
+		if ("".equals(psd))
+			psd = getSharedPreferences("userinfo", 0).getString("psd", "");
+		return psd;
 	}
 
 	public String getUname() {
-		if ("".equals(this.uname))
-			this.uname = getSharedPreferences("userinfo", 0).getString("uname",
-					"");
-		return this.uname;
+		if ("".equals(uname))
+			uname = getSharedPreferences("userinfo", 0).getString("uname", "");
+		return uname;
 	}
 
 	public String getUrl() {
@@ -174,54 +168,54 @@ public class OurApplication extends Application {
 		ImageLoader.getInstance().init(localImageLoaderConfiguration);
 	}
 
-	public void saveShared(String paramString1, String paramString2) {
+	public void saveShared(String key, String value) {
 		SharedPreferences.Editor localEditor = getSharedPreferences("userinfo",
 				0).edit();
-		localEditor.putString(paramString1, paramString2);
+		localEditor.putString(key, value);
 		localEditor.commit();
 	}
 
-	public void setConfig(Config paramConfig) {
-		this.config = paramConfig;
-		savaObject("config", paramConfig);
+	public void setConfig(Config config) {
+		this.config = config;
+		savaObject("config", config);
 	}
 
-	public void setLoginVo(LoginVo paramLoginVo) {
-		this.loginVo = paramLoginVo;
-		savaObject("loginVo", paramLoginVo);
+	public void setLoginVo(LoginVo loginVo) {
+		this.loginVo = loginVo;
+		savaObject("loginVo", loginVo);
 	}
 
-	public void setOpenSy(String paramString) {
-		SharedPreferences.Editor localEditor = getSharedPreferences("userinfo",
-				0).edit();
-		localEditor.putString("openSy", paramString);
-		localEditor.commit();
+	public void setOpenSy(String openSyString) {
+		SharedPreferences.Editor editor = getSharedPreferences("userinfo", 0)
+				.edit();
+		editor.putString("openSy", openSyString);
+		editor.commit();
 	}
 
-	public void setPsd(String paramString) {
-		SharedPreferences.Editor localEditor = getSharedPreferences("userinfo",
-				0).edit();
-		localEditor.putString("psd", paramString);
-		localEditor.commit();
+	public void setPsd(String psdString) {
+		SharedPreferences.Editor editor = getSharedPreferences("userinfo", 0)
+				.edit();
+		editor.putString("psd", psdString);
+		editor.commit();
 	}
 
-	public void setUname(String paramString) {
-		SharedPreferences.Editor localEditor = getSharedPreferences("userinfo",
-				0).edit();
-		localEditor.putString("uname", paramString);
-		localEditor.commit();
+	public void setUname(String unameString) {
+		SharedPreferences.Editor editor = getSharedPreferences("userinfo", 0)
+				.edit();
+		editor.putString("uname", unameString);
+		editor.commit();
 	}
 
-	public void setUrl(String paramString) {
-		saveShared("url", paramString);
-		this.url = paramString;
+	public void setUrl(String url) {
+		saveShared("url", url);
+		this.url = url;
 	}
 
-	public void setUuid(String paramString) {
-		SharedPreferences.Editor localEditor = getSharedPreferences("userinfo",
-				0).edit();
-		localEditor.putString("uuid", paramString);
-		localEditor.commit();
+	public void setUuid(String uuidString) {
+		SharedPreferences.Editor editor = getSharedPreferences("userinfo", 0)
+				.edit();
+		editor.putString("uuid", uuidString);
+		editor.commit();
 	}
 
 	public void setViewFontSize(Object paramObject, int paramInt) {
