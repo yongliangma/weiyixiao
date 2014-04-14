@@ -41,8 +41,8 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	public void btnLoginClick(View paramView) {
-		String name = this.txtName.getText().toString().trim();
-		String password = this.txtPsd.getText().toString().trim();
+		String name = txtName.getText().toString().trim();
+		String password = txtPsd.getText().toString().trim();
 		if (("".equals(name)) || ("".equals(password)) || (name.length() < 6)
 				|| (password.length() < 6)) {
 			showMessage("信息填写不完整！");

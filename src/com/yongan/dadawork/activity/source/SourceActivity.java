@@ -36,7 +36,7 @@ public class SourceActivity extends BaseActivity {
 		localBazaar.name = "优质供货商";
 		localBazaar.address = "此类供货商均为自行管理商品，一旦断货情况他们会及时更新产品状态。为广大用户提供更好的服务！";
 		localArrayList.add(localBazaar);
-		localArrayList.addAll(getApp().getLoginVo().baseData.bazaars);
+//		localArrayList.addAll(getApp().getLoginVo().baseData.bazaars);
 		localListView.setAdapter(new SourceAdapter(this, localArrayList));
 		localListView.setOnItemClickListener(new OnItemClickListener() {
 

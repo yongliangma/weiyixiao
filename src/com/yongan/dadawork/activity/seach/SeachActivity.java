@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,6 +34,7 @@ import com.yongan.dadawork.entity.ChanPin;
 import com.yongan.dadawork.entity.LeiXing;
 import com.yongan.dadawork.entity.PinPai;
 import com.yongan.dadawork.entity.XingBie;
+import com.yongan.dadawork.entity.clazz.Service;
 import com.yongan.dadawork.service.ChanPinService;
 import com.yongan.dadawork.utils.CItem;
 import com.yongan.dadawork.utils.ComparatorObject;
@@ -61,7 +63,204 @@ public class SeachActivity extends BaseActivity<SeachData> {
 	private Spinner spShs;// 鞋跟粗细
 	private Spinner spSt;// 鞋子类型
 	private Spinner spWatchband;// 手表表带
-	public TextView txtid;
+	public EditText txtid;
+
+	protected void onCreate(Bundle bundle) {
+		super.onCreate(bundle);
+		setContentView(R.layout.activity_seach);
+
+		if (bundle != null) {
+			data = ((SeachData) new Gson().fromJson(bundle.getString("data"),
+					SeachData.class));
+		} else {
+			data = new SeachData();
+		}
+		instanse = this;
+		txtid = ((EditText) findViewById(R.id.txtId));
+		btnFind = ((Button) findViewById(R.id.btnFind));
+		spRenQun = ((Spinner) findViewById(R.id.spRenQun));
+		spPinPai = ((Spinner) findViewById(R.id.spPinPai));
+		spService = (Spinner) findViewById(R.id.spService);
+		btnClear = ((Button) findViewById(R.id.btnClear));
+		btnFindCodition = ((Button) findViewById(R.id.btnFindCodition));
+		initSpData();
+		initClazz();
+
+	}
+
+	private void initClazz() {
+		LinearLayout ll = (LinearLayout) findViewById(R.id.clazzLayout);
+		ClassButton btn1 = new ClassButton(this);
+		LeiXing leiXing = new LeiXing();
+		leiXing.name = "全部";
+		leiXing.id = Integer.valueOf(-1);
+		btn1.setData(leiXing);
+		ll.addView(btn1);
+		Iterator iterator = getApp().getLoginVo().baseData.lxs.iterator();
+		while (true) {
+			if (!iterator.hasNext()) {
+				btn1.performClick();
+				return;
+			}
+			LeiXing leiXing2 = (LeiXing) iterator.next();
+			ClassButton btn2 = new ClassButton(this);
+			btn2.setData(leiXing2);
+			ll.addView(btn2);
+		}
+	}
+
+	private void initSpData() {
+		LoginVo lv = getApp().getLoginVo();
+		// 试用人群的Spinner
+		ArrayList<CItem> arraylistRenqun = new ArrayList<CItem>();
+		arraylistRenqun.add(new CItem(-1, "选择适用人群"));
+		for (int i = 0; i < lv.baseData.xbs.size(); i++) {
+			XingBie xingBie = (XingBie) lv.baseData.xbs.get(i);
+			arraylistRenqun.add(new CItem(xingBie.id.intValue(), xingBie.name));
+		}
+		ArrayAdapter<CItem> arrayAdapterRenqun = new ArrayAdapter<CItem>(this,
+				android.R.layout.simple_spinner_item, arraylistRenqun);
+		arrayAdapterRenqun
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spRenQun.setAdapter(arrayAdapterRenqun);
+		// 产品品牌的Spinner
+		ArrayList<CItem> arraylistPinpai = new ArrayList<CItem>();
+		arraylistPinpai.add(new CItem(-1, "选择产品品牌"));
+		for (int j = 0; j < lv.baseData.pps.size(); j++) {
+			PinPai pinPai = (PinPai) lv.baseData.pps.get(j);
+			arraylistPinpai.add(new CItem(pinPai.id.intValue(), pinPai.cname
+					+ "(" + pinPai.ename + ")"));
+		}
+		ArrayAdapter<CItem> arrayAdapterPinpai = new ArrayAdapter<CItem>(this,
+				android.R.layout.simple_spinner_item, arraylistPinpai);
+		arrayAdapterPinpai
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spPinPai.setAdapter(arrayAdapterPinpai);
+		// 售后服务的Spinner
+		ArrayList<CItem> arraylistService = new ArrayList<CItem>();
+		arraylistService.add(new CItem(-1, "选择售后服务"));
+		for (int j = 0; j < lv.baseData.ss.size(); j++) {
+			Service service = (Service) lv.baseData.ss.get(j);
+			arraylistService
+					.add(new CItem(service.id.intValue(), service.name));
+		}
+		ArrayAdapter<CItem> arrayAdapterService = new ArrayAdapter<CItem>(this,
+				android.R.layout.simple_spinner_item, arraylistService);
+		arrayAdapterService
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spService.setAdapter(arrayAdapterService);
+
+		// 品质
+		spBq = new Spinner(this);
+		initSpinnerData(lv.baseData.bqs, spBq, 1);
+
+		// 包包类型
+		spBt = new Spinner(this);
+		initSpinnerData(lv.baseData.bts, spBt, 2);
+
+		// 手表机芯
+		this.spChip = new Spinner(this);
+		initSpinnerData(lv.baseData.cs, this.spChip, 3);
+
+		// 服装类型
+		spCt = new Spinner(this);
+		initSpinnerData(lv.baseData.cts, spCt, 4);
+
+		// 材质
+		spMaterial = new Spinner(this);
+		initSpinnerData(lv.baseData.ms, spMaterial, 5);
+
+		// 鞋跟高度
+		spShh = new Spinner(this);
+		initSpinnerData(lv.baseData.shhs, spShh, 7);
+
+		// 鞋跟粗细
+		spShs = new Spinner(this);
+		initSpinnerData(lv.baseData.shss, spShs, 8);
+
+		// 鞋子类型
+		spSt = new Spinner(this);
+		initSpinnerData(lv.baseData.sts, spSt, 9);
+
+		// 手表表带
+		spWatchband = new Spinner(this);
+		initSpinnerData(lv.baseData.ws, spWatchband, 10);
+
+		// 闭合方式
+		spBiHe = new Spinner(this);
+		initSpinnerData(lv.baseData.bhs, spBiHe, 11);
+
+		// 护肤彩妆类型
+		spMakeupType = new Spinner(this);
+		initSpinnerData(lv.baseData.mts, spMakeupType, 12);
+	}
+
+	private void initSpinnerData(List<?> list, Spinner spinner, int tag) {
+		try {
+			ArrayList<CItem> al = new ArrayList<CItem>();
+			for (int i = 0; i < list.size(); i++) {
+				Object object = list.get(i);
+				Field field1 = object.getClass().getField("id");
+				Field field2 = object.getClass().getField("name");
+				al.add(new CItem(Integer.valueOf(field1.get(object).toString())
+						.intValue(), field2.get(object).toString()));
+			}
+			Collections.sort(al, new ComparatorObject());
+			ArrayAdapter<CItem> adapter = new ArrayAdapter<CItem>(this,
+					android.R.layout.simple_spinner_item, al);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spinner.setTag(Integer.valueOf(tag));
+			spinner.setLayoutParams(new ViewGroup.LayoutParams(-1,
+					(int) TypedValue.applyDimension(1, 45.0F, getResources()
+							.getDisplayMetrics())));
+			spinner.setAdapter(adapter);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void clazzClick(LeiXing leiXing) {
+		setAttbete(leiXing.name);
+		((SeachData) this.data).lx = leiXing;
+	}
+
+	private void setAttbete(String name) {
+		LinearLayout ll = (LinearLayout) findViewById(R.id.shuxingLayout);
+		ll.removeAllViews();
+		if (name.equals("包包")) {
+			ll.addView(spBt);
+			ll.addView(spBq);
+			// ll.addView(spMaterial);
+		}
+		if (name.equals("鞋子")) {
+			ll.addView(this.spSt);
+		}
+		if (name.equals("皮带")) {
+			ll.addView(spBq);
+			// ll.addView(this.spMaterial);
+		}
+		// if (name.equals("丝巾"))
+		// ll.addView(this.spMaterial);
+		if (name.equals("手表")) {
+			ll.addView(spChip);
+			ll.addView(spWatchband);
+		}
+		if (name.equals("衣服")) {
+			ll.addView(spCt);
+		}
+		if (name.equals("护肤彩妆")) {
+			ll.addView(spMakeupType);
+		}
+	}
 
 	private void findNewChanPin() {
 		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...", true);
@@ -80,203 +279,11 @@ public class SeachActivity extends BaseActivity<SeachData> {
 				"chanPinHandler");
 	}
 
-	protected void onCreate(Bundle bundle) {
-		super.onCreate(bundle);
-		setContentView(R.layout.activity_seach);
-
-		if (bundle != null) {
-			data = ((SeachData) new Gson().fromJson(bundle.getString("data"),
-					SeachData.class));
-		} else {
-			data = new SeachData();
-		}
-		instanse = this;
-		txtid = ((TextView) findViewById(R.id.txtId));
-		btnFind = ((Button) findViewById(R.id.btnFind));
-		spRenQun = ((Spinner) findViewById(R.id.spRenQun));
-		spPinPai = ((Spinner) findViewById(R.id.spPinPai));
-		btnClear = ((Button) findViewById(R.id.btnClear));
-		btnFindCodition = ((Button) findViewById(R.id.btnFindCodition));
-		initSpData();
-		initClazz();
-
-	}
-
-	private void initClazz() {
-		LinearLayout localLinearLayout = (LinearLayout) findViewById(R.id.clazzLayout);
-		ClassButton localClassButton1 = new ClassButton(this);
-		LeiXing localLeiXing1 = new LeiXing();
-		localLeiXing1.name = "全部";
-		localLeiXing1.id = Integer.valueOf(-1);
-		localClassButton1.setData(localLeiXing1);
-		localLinearLayout.addView(localClassButton1);
-		Iterator localIterator = getApp().getLoginVo().baseData.lxs.iterator();
-		while (true) {
-			if (!localIterator.hasNext()) {
-				localClassButton1.performClick();
-				return;
-			}
-			LeiXing localLeiXing2 = (LeiXing) localIterator.next();
-			ClassButton localClassButton2 = new ClassButton(this);
-			localClassButton2.setData(localLeiXing2);
-			localLinearLayout.addView(localClassButton2);
-		}
-	}
-
-	public void clazzClick(LeiXing paramLeiXing) {
-		setAttbete(paramLeiXing.name);
-		((SeachData) this.data).lx = paramLeiXing;
-	}
-
-	private void initSpData() {
-		LoginVo localLoginVo = getApp().getLoginVo();
-		// List localList =localLoginVo.baseData.pps ;// 品牌列表
-		ArrayList<CItem> localArrayList1 = new ArrayList<CItem>();
-		localArrayList1.add(new CItem(-1, "选择人群(默认全部 )"));
-		for (int i = 0; i < localLoginVo.baseData.xbs.size(); i++) {
-			XingBie localXingBie = (XingBie) localLoginVo.baseData.xbs.get(i);
-			localArrayList1.add(new CItem(localXingBie.id.intValue(),
-					localXingBie.name));
-		}
-		ArrayAdapter<CItem> localArrayAdapter1 = new ArrayAdapter<CItem>(this,
-				android.R.layout.simple_spinner_item, localArrayList1);
-		localArrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spRenQun.setAdapter(localArrayAdapter1);
-
-		ArrayList<CItem> localArrayList2 = new ArrayList<CItem>();
-		localArrayList2.add(new CItem(-1, "选择品牌(默认全部)"));
-		for (int j = 0; j < localLoginVo.baseData.pps.size(); j++) {
-			PinPai localPinPai = (PinPai) localLoginVo.baseData.pps.get(j);
-			localArrayList2.add(new CItem(localPinPai.id.intValue(),
-					localPinPai.cname + "(" + localPinPai.ename + ")"));
-		}
-		ArrayAdapter<CItem> localArrayAdapter2 = new ArrayAdapter<CItem>(this,
-				android.R.layout.simple_spinner_item, localArrayList2);
-		localArrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spPinPai.setAdapter(localArrayAdapter2);
-
-		Spinner localSpinner1 = new Spinner(this);
-		this.spBq = localSpinner1;
-		initSpinnerData(localLoginVo.baseData.bqs, this.spBq, 1);
-		Spinner localSpinner2 = new Spinner(this);
-		this.spBt = localSpinner2;
-		initSpinnerData(localLoginVo.baseData.bts, this.spBt, 2);
-		Spinner localSpinner3 = new Spinner(this);
-		this.spWatchband = localSpinner3;
-		initSpinnerData(localLoginVo.baseData.ws, this.spWatchband, 10);
-		Spinner localSpinner4 = new Spinner(this);
-		this.spChip = localSpinner4;
-		initSpinnerData(localLoginVo.baseData.cs, this.spChip, 3);
-		Spinner localSpinner5 = new Spinner(this);
-		this.spMaterial = localSpinner5;
-		initSpinnerData(localLoginVo.baseData.ms, this.spMaterial, 5);
-		Spinner localSpinner6 = new Spinner(this);
-		this.spShh = localSpinner6;
-		initSpinnerData(localLoginVo.baseData.shhs, this.spShh, 7);
-		Spinner localSpinner7 = new Spinner(this);
-		this.spShs = localSpinner7;
-		initSpinnerData(localLoginVo.baseData.shss, this.spShs, 8);
-		Spinner localSpinner8 = new Spinner(this);
-		this.spSt = localSpinner8;
-		initSpinnerData(localLoginVo.baseData.sts, this.spSt, 9);
-		Spinner localSpinner9 = new Spinner(this);
-		this.spCt = localSpinner9;
-		initSpinnerData(localLoginVo.baseData.cts, this.spCt, 4);
-		Spinner localSpinner10 = new Spinner(this);
-		this.spService = localSpinner10;
-		initSpinnerData(localLoginVo.baseData.ss, this.spService, 6);
-		Spinner localSpinner11 = new Spinner(this);
-		this.spBiHe = localSpinner11;
-		initSpinnerData(localLoginVo.baseData.bhs, this.spBiHe, 11);
-		Spinner localSpinner12 = new Spinner(this);
-		this.spMakeupType = localSpinner12;
-		initSpinnerData(localLoginVo.baseData.mts, this.spMakeupType, 12);
-
-	}
-
-	private void initSpinnerData(List<?> paramList, Spinner paramSpinner,
-			int paramInt) {
-		try {
-			ArrayList<CItem> localArrayList = new ArrayList<CItem>();
-			for (int i = 0; i < paramList.size(); i++) {
-				Object localObject = paramList.get(i);
-				Field localField1 = localObject.getClass().getField("id");
-				Field localField2 = localObject.getClass().getField("name");
-				localArrayList.add(new CItem(Integer.valueOf(
-						localField1.get(localObject).toString()).intValue(),
-						localField2.get(localObject).toString()));
-			}
-			Collections.sort(localArrayList, new ComparatorObject());
-			ArrayAdapter<CItem> localArrayAdapter = new ArrayAdapter<CItem>(
-					this, android.R.layout.simple_spinner_item,
-					localArrayList);
-			localArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			paramSpinner.setTag(Integer.valueOf(paramInt));
-			paramSpinner.setLayoutParams(new ViewGroup.LayoutParams(-1,
-					(int) TypedValue.applyDimension(1, 45.0F, getResources()
-							.getDisplayMetrics())));
-			paramSpinner.setAdapter(localArrayAdapter);
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	private void setAttbete(String paramString) {
-		LinearLayout localLinearLayout = (LinearLayout) findViewById(R.id.shuxingLayout);
-		localLinearLayout.removeAllViews();
-		localLinearLayout.addView(this.spService);
-		if (paramString.equals("包包")) {
-			localLinearLayout.addView(this.spBt);
-			localLinearLayout.addView(this.spBq);
-			localLinearLayout.addView(this.spMaterial);
-		}
-		if (paramString.equals("鞋子")) {
-			CItem localCItem = (CItem) this.spRenQun.getSelectedItem();
-			localLinearLayout.addView(this.spSt);
-			localLinearLayout.addView(this.spMaterial);
-			if (localCItem.GetValue().equals("女士")) {
-				localLinearLayout.addView(this.spShh);
-				localLinearLayout.addView(this.spShs);
-			}
-			localLinearLayout.addView(this.spBiHe);
-		}
-		if (paramString.equals("皮带")) {
-			localLinearLayout.addView(this.spBq);
-			localLinearLayout.addView(this.spMaterial);
-		}
-		if (paramString.equals("丝巾"))
-			localLinearLayout.addView(this.spMaterial);
-		if (paramString.equals("手表")) {
-			localLinearLayout.addView(this.spChip);
-			localLinearLayout.addView(this.spWatchband);
-		}
-		if (paramString.equals("衣服")) {
-			localLinearLayout.addView(this.spCt);
-		}
-		if (paramString.equals("护肤彩妆")) {
-			localLinearLayout.addView(this.spMakeupType);
-		}
-	}
-
 	// 点击 清除所选属性
 	public void clearClick(View view) {
-		LinearLayout localLinearLayout = (LinearLayout) findViewById(R.id.shuxingLayout);
-		for (int i = 0; i < localLinearLayout.getChildCount(); ++i) {
-			((Spinner) localLinearLayout.getChildAt(i)).setSelection(0);
+		LinearLayout ll = (LinearLayout) findViewById(R.id.shuxingLayout);
+		for (int i = 0; i < ll.getChildCount(); ++i) {
+			((Spinner) ll.getChildAt(i)).setSelection(0);
 		}
 		this.spRenQun.setSelection(0);
 		this.spPinPai.setSelection(0);
@@ -369,15 +376,14 @@ public class SeachActivity extends BaseActivity<SeachData> {
 	}
 
 	private String getText() {
-		LinearLayout localLinearLayout = (LinearLayout) findViewById(R.id.shuxingLayout);
+		LinearLayout ll = (LinearLayout) findViewById(R.id.shuxingLayout);
 		String str = "";
-		for (int i = 0; i < localLinearLayout.getChildCount(); i++) {
-			Spinner localSpinner = (Spinner) localLinearLayout.getChildAt(i);
-			CItem localCItem = (CItem) localSpinner.getSelectedItem();
-			if (localCItem.GetID() == -1)
+		for (int i = 0; i < ll.getChildCount(); i++) {
+			Spinner spinner = (Spinner) ll.getChildAt(i);
+			CItem citem = (CItem) spinner.getSelectedItem();
+			if (citem.GetID() == -1)
 				continue;
-			str = str + localSpinner.getTag().toString() + "_"
-					+ localCItem.GetID() + "|";
+			str = str + spinner.getTag().toString() + "_" + citem.GetID() + "|";
 		}
 		if (str != "")
 			str = str.substring(0, str.length() - 1);
@@ -389,9 +395,9 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		private LeiXing lx;
 		private TextView textView;
 
-		public ClassButton(Context paramContext) {
-			super(paramContext);
-			((LayoutInflater) paramContext.getSystemService("layout_inflater"))
+		public ClassButton(Context context) {
+			super(context);
+			((LayoutInflater) context.getSystemService("layout_inflater"))
 					.inflate(R.layout.class_button, this);
 			imageView = ((ImageView) findViewById(R.id.imgBg));
 			textView = ((TextView) findViewById(R.id.txtClazz));
@@ -399,9 +405,9 @@ public class SeachActivity extends BaseActivity<SeachData> {
 				@Override
 				public void onClick(View v) {
 					clazzClick(lx);
-					LinearLayout localLinearLayout = (LinearLayout) getParent();
-					for (int i = 0; i < localLinearLayout.getChildCount(); i++) {
-						((ClassButton) localLinearLayout.getChildAt(i)).imageView
+					LinearLayout ll = (LinearLayout) getParent();
+					for (int i = 0; i < ll.getChildCount(); i++) {
+						((ClassButton) ll.getChildAt(i)).imageView
 								.setImageResource(R.drawable.button_on);
 					}
 					imageView.setImageResource(R.drawable.button_over);
@@ -409,9 +415,9 @@ public class SeachActivity extends BaseActivity<SeachData> {
 			});
 		}
 
-		public void setData(LeiXing paramLeiXing) {
-			lx = paramLeiXing;
-			textView.setText(paramLeiXing.name);
+		public void setData(LeiXing leiXing) {
+			lx = leiXing;
+			textView.setText(leiXing.name);
 		}
 	}
 }

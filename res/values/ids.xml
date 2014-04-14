@@ -35,6 +35,7 @@
     <item name="txtId" type="id"/>
     <item name="spRenQun" type="id"/>
     <item name="spPinPai" type="id"/>
+    <item name="spService" type="id"/>
     <item name="shuxingLayout" type="id"/>
     <item name="btnFindCodition" type="id"/>
     <item name="btnClear" type="id"/>

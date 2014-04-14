@@ -22,7 +22,7 @@ public class OurApplication extends Application {
 	public List<BaseActivity> activitys = new ArrayList();
 	private Config config;
 	public boolean isLoad = false;
-	public int localBanBen = 21;
+	public int localBanBen = 1;
 	public LoginVo loginVo;
 	private String psd = "";
 	private String uname = "";
@@ -121,10 +121,10 @@ public class OurApplication extends Application {
 	}
 
 	public LoginVo getLoginVo() {
-		if (this.loginVo == null)
-			this.loginVo = ((LoginVo) new Gson().fromJson(getObject("loginVo"),
+		if (loginVo == null)
+			loginVo = ((LoginVo) new Gson().fromJson(getObject("loginVo"),
 					LoginVo.class));
-		return this.loginVo;
+		return loginVo;
 	}
 
 	public String getOpenSy() {
@@ -144,17 +144,14 @@ public class OurApplication extends Application {
 	}
 
 	public String getUrl() {
-		if (!"".equals(this.url))
-			;
-		for (String str = this.url;; str = getSharedPreferences("userinfo", 0)
-				.getString("url", ""))
-			return str;
+		if ("".equals(this.url))
+			url = getSharedPreferences("userinfo", 0).getString("url", "");
+		return url;
 	}
 
 	public String getUuid() {
-		if ("".equals(this.uuid))
-			this.uuid = getSharedPreferences("userinfo", 0).getString("uuid",
-					"");
+		if ("".equals(uuid))
+			uuid = getSharedPreferences("userinfo", 0).getString("uuid", "");
 		return this.uuid;
 	}
 
