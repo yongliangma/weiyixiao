@@ -49,18 +49,14 @@ public class SeachActivity extends BaseActivity<SeachData> {
 	private Button btnFindCodition;
 	private boolean isExit = false;
 	private ProgressDialog progressDialog;
-	private Spinner spBiHe;// 闭合方式
 	private Spinner spBq;// 品质
 	private Spinner spBt;// 包包类型
 	private Spinner spChip;// 机芯
 	private Spinner spCt;// 服装类型
 	private Spinner spMakeupType;// 护肤彩妆类型
-	private Spinner spMaterial;// 材质
 	private Spinner spPinPai;// 品牌
 	private Spinner spRenQun;// 人群
 	private Spinner spService;// 售后
-	private Spinner spShh;// 鞋跟高度
-	private Spinner spShs;// 鞋跟粗细
 	private Spinner spSt;// 鞋子类型
 	private Spinner spWatchband;// 手表表带
 	public EditText txtid;
@@ -166,18 +162,6 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		spCt = new Spinner(this);
 		initSpinnerData(lv.baseData.cts, spCt, 4);
 
-		// 材质
-		spMaterial = new Spinner(this);
-		initSpinnerData(lv.baseData.ms, spMaterial, 5);
-
-		// 鞋跟高度
-		spShh = new Spinner(this);
-		initSpinnerData(lv.baseData.shhs, spShh, 7);
-
-		// 鞋跟粗细
-		spShs = new Spinner(this);
-		initSpinnerData(lv.baseData.shss, spShs, 8);
-
 		// 鞋子类型
 		spSt = new Spinner(this);
 		initSpinnerData(lv.baseData.sts, spSt, 9);
@@ -185,10 +169,6 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		// 手表表带
 		spWatchband = new Spinner(this);
 		initSpinnerData(lv.baseData.ws, spWatchband, 10);
-
-		// 闭合方式
-		spBiHe = new Spinner(this);
-		initSpinnerData(lv.baseData.bhs, spBiHe, 11);
 
 		// 护肤彩妆类型
 		spMakeupType = new Spinner(this);
@@ -239,17 +219,13 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		if (name.equals("包包")) {
 			ll.addView(spBt);
 			ll.addView(spBq);
-			// ll.addView(spMaterial);
 		}
 		if (name.equals("鞋子")) {
 			ll.addView(this.spSt);
 		}
 		if (name.equals("皮带")) {
 			ll.addView(spBq);
-			// ll.addView(this.spMaterial);
 		}
-		// if (name.equals("丝巾"))
-		// ll.addView(this.spMaterial);
 		if (name.equals("手表")) {
 			ll.addView(spChip);
 			ll.addView(spWatchband);

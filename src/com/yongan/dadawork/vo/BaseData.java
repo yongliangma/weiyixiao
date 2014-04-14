@@ -22,20 +22,16 @@ import java.util.List;
 
 public class BaseData {
 	public List<Bazaar> bazaars;
-	public List<BiHe> bhs;//返回结果有，值为空
-	public List<BagQuality> bqs;//返回结果有
-	public List<BagType> bts;//返回结果有
-	public List<Chip> cs;//返回结果暂无
-	public List<ClothingType> cts;//返回结果有
-	public List<Link> links;//返回结果有
-	public List<LeiXing> lxs;//返回结果有
-	public List<Material> ms;//返回结果有
-	public List<MakeupType> mts;//返回结果有
-	public List<PinPai> pps;//返回结果有
-	public List<ShoesHeelHeight> shhs;//返回结果有
-	public List<ShoesHeelSize> shss;//返回结果有
-	public List<Service> ss;//返回结果有
-	public List<ShoesType> sts;//返回结果有
-	public List<Watchband> ws;//返回结果有
-	public List<XingBie> xbs;//返回结果有
+	public List<BagQuality> bqs;//返回结果有1
+	public List<BagType> bts;//返回结果有1
+	public List<Chip> cs;//返回结果有1
+	public List<ClothingType> cts;//返回结果有1
+	public List<Link> links;//返回结果有1
+	public List<LeiXing> lxs;//返回结果有1
+	public List<MakeupType> mts;//返回结果有1
+	public List<PinPai> pps;//返回结果有1
+	public List<Service> ss;//返回结果有1
+	public List<ShoesType> sts;//返回结果有1
+	public List<Watchband> ws;//返回结果有1
+	public List<XingBie> xbs;//返回结果有1
 }
