@@ -44,16 +44,15 @@ public class ChanPinService {
 				ServiceName.getInterface(), localHashMap);
 	}
 
-	public void getChanPinById(String paramString1, String paramString2,
-			HashMap<String, String> paramHashMap, Object paramObject,
-			String paramString3) {
-		HashMap<String, String> localHashMap = new HashMap<String, String>();
-		localHashMap.put("interface", "getChanPinById");
-		localHashMap.put("uname", paramString1);
-		localHashMap.put("uuid", paramString2);
-		localHashMap.put("cpid", (String) paramHashMap.get("cpid"));
-		HttpUtils.executePost(paramObject, paramString3,
-				ServiceName.getInterface(), localHashMap);
+	public void getChanPinById(String uname, String uuid,
+			HashMap<String, String> hashMap, Object context, String method) {
+		HashMap<String, String> hashMapParams = new HashMap<String, String>();
+		hashMapParams.put("interface", "getChanPinById");
+		hashMapParams.put("uname", uname);
+		hashMapParams.put("uuid", uuid);
+		hashMapParams.put("cpid", (String) hashMap.get("cpid"));
+		HttpUtils.executePost(context, method, ServiceName.getChanPinByIdUrl,
+				hashMapParams);
 	}
 
 	public void getSourceData(String uname, String uuidString,

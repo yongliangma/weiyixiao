@@ -268,18 +268,18 @@ public class SeachActivity extends BaseActivity<SeachData> {
 	// 点击查询结果 响应的方法
 	public void findChanPin(View paramView) {
 		this.isExit = false;
-		this.progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...",
+		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...",
 				true);
-		View localView = this.progressDialog.getWindow().getDecorView();
+		View localView = progressDialog.getWindow().getDecorView();
 		getApp().setViewFontSize(localView, 20);
-		this.progressDialog.setCancelable(true);
-		this.progressDialog.setIcon(R.drawable.ic_launcher);
-		String str = this.txtid.getText().toString().trim();
+		progressDialog.setCancelable(true);
+		progressDialog.setIcon(R.drawable.ic_launcher);
+		String str =txtid.getText().toString().trim();
 		if (OurApplication.isNumeric(str)) {
-			HashMap<String, String> localHashMap = new HashMap<String, String>();
-			localHashMap.put("cpid", str);
+			HashMap<String, String> hashmap = new HashMap<String, String>();
+			hashmap.put("cpid", str);
 			ChanPinService.getInstans().getChanPinById(getApp().getUname(),
-					getApp().getUuid(), localHashMap, this, "chanPinHandler");
+					getApp().getUuid(), hashmap, this, "chanPinHandler");
 		} else {
 			((SeachData) this.data).mapData = new HashMap<String, String>();
 			((SeachData) this.data).mapData.put("page", "0");
@@ -300,12 +300,12 @@ public class SeachActivity extends BaseActivity<SeachData> {
 
 	// 点击筛选条件查询 响应的方法
 	public void findChanPinCodition(View paramView) {
-		this.progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...",
+		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...",
 				true);
-		View localView = this.progressDialog.getWindow().getDecorView();
+		View localView = progressDialog.getWindow().getDecorView();
 		getApp().setViewFontSize(localView, 20);
-		this.progressDialog.setCancelable(true);
-		this.progressDialog.setIcon(R.drawable.ic_launcher);
+		progressDialog.setCancelable(true);
+		progressDialog.setIcon(R.drawable.ic_launcher);
 		String str = this.txtid.getText().toString().trim();
 		((SeachData) this.data).mapData = new HashMap<String, String>();
 		((SeachData) this.data).mapData.put("page", "0");

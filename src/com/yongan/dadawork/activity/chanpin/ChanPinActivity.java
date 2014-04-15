@@ -186,7 +186,7 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 					PinPai localPinPai = ChanPinActivity.this
 							.getApp()
 							.findPinPaiById(
-									Integer.valueOf(((ChanPinData) ChanPinActivity.this.data).cp.pinpai
+									Integer.valueOf(((ChanPinData) ChanPinActivity.this.data).cp.pinpaiId
 											.intValue()));
 					String str = "";
 					if (localPinPai.id.intValue() != 0)

@@ -137,7 +137,7 @@ public class ImageAdapter extends BaseAdapter {
 		localViewHolder.btnXiangQing.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				context.switchXiangQing(localChanPin);
+				// context.switchXiangQing(localChanPin);
 			}
 		});
 
@@ -160,8 +160,8 @@ public class ImageAdapter extends BaseAdapter {
 		}
 		if (paramChanPin.leixing == null)
 			paramChanPin.leixing = Integer.valueOf(0);
-		if (paramChanPin.pinpai == null)
-			paramChanPin.pinpai = Integer.valueOf(0);
+		if (paramChanPin.pinpaiId == null)
+			paramChanPin.pinpaiId = Integer.valueOf(0);
 
 		if (paramUserEntity.qx.intValue() == 0) {
 			str1 = "<b>类型:"
@@ -201,15 +201,15 @@ public class ImageAdapter extends BaseAdapter {
 	public String getLink(UserEntity paramUserEntity, ChanPin paramChanPin) {
 		String str;
 		if (paramChanPin.state.intValue() == 1) {
-			str = "<font>编号："
-					+ paramChanPin.id
-					+ "  日期："
-					+ paramChanPin.shijian.subSequence(0, -8
-							+ paramChanPin.shijian.length()) + "</font>";
+			str = "<font>编号：" + paramChanPin.id + "  日期："
+			// + paramChanPin.shijian.subSequence(0, -8
+			// + paramChanPin.shijian.length()) +
+					+ paramChanPin.createTime + "</font>";
 		} else {
 			str = "<font color='#ff0000'>商品已下架  日期："
-					+ paramChanPin.shijian.subSequence(0, -8
-							+ paramChanPin.shijian.length()) + "</font>";
+			// + paramChanPin.shijian.subSequence(0, -8
+			// + paramChanPin.shijian.length()) +
+					+ paramChanPin.createTime + "</font>";
 		}
 
 		return str;
@@ -219,7 +219,7 @@ public class ImageAdapter extends BaseAdapter {
 		String str;
 		int i = paramUserEntity.xzStr.indexOf(paramChanPin.id.toString());
 		PinPai localPinPai = this.context.getApp().findPinPaiById(
-				paramChanPin.pinpai);
+				paramChanPin.pinpaiId);
 		if (i == -1)
 			str = "<b>" + localPinPai.cname + "(" + localPinPai.ename + ")</b>";
 		else {

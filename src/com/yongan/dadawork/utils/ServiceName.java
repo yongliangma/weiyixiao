@@ -11,5 +11,6 @@ public class ServiceName {
 	public static final String registerUrl = HOSTNAME + "userRegister";
 	public static final String configUrl = HOSTNAME + "config";
 	public static final String userLoginUrl = HOSTNAME + "userLogin";
+	public static final String getChanPinByIdUrl = HOSTNAME + "getChanPinById";
 
 }
