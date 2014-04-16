@@ -28,7 +28,7 @@ public class ChanPinService {
 			hashMap.put(keyStr, (String) paramHashMap.get(keyStr));
 		}
 		HttpUtils.executePost(paramObject, paramString3,
-				ServiceName.getInterface(), hashMap);
+				ServiceName.getChanPinUrl, hashMap);
 	}
 
 	public void getChanPinByDangkou(String paramString1, String paramString2,

@@ -91,6 +91,7 @@
         android:background="@drawable/xiangqing_on"
         android:focusable="false"
         android:text="详情"
-        android:textColor="#ffffffff" />
+        android:textColor="#ffffffff"
+        android:visibility="gone" />
 
 </RelativeLayout>

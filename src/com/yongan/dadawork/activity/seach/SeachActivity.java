@@ -248,6 +248,7 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		((SeachData) this.data).mapData.put("page", "0");
 		((SeachData) this.data).mapData.put("lx", "-1");
 		((SeachData) this.data).mapData.put("xb", "-1");
+		((SeachData) this.data).mapData.put("ss", "-1");
 		((SeachData) this.data).mapData.put("pp", "-1");
 		((SeachData) this.data).mapData.put("text", "");
 		ChanPinService.getInstans().getChanPin(getApp().getUname(),
@@ -263,18 +264,18 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		}
 		this.spRenQun.setSelection(0);
 		this.spPinPai.setSelection(0);
+		this.spService.setSelection(0);
 	}
 
 	// 点击查询结果 响应的方法
 	public void findChanPin(View paramView) {
 		this.isExit = false;
-		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...",
-				true);
+		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...", true);
 		View localView = progressDialog.getWindow().getDecorView();
 		getApp().setViewFontSize(localView, 20);
 		progressDialog.setCancelable(true);
 		progressDialog.setIcon(R.drawable.ic_launcher);
-		String str =txtid.getText().toString().trim();
+		String str = txtid.getText().toString().trim();
 		if (OurApplication.isNumeric(str)) {
 			HashMap<String, String> hashmap = new HashMap<String, String>();
 			hashmap.put("cpid", str);
@@ -286,10 +287,12 @@ public class SeachActivity extends BaseActivity<SeachData> {
 			((SeachData) this.data).mapData.put("lx",
 					((SeachData) this.data).lx.id.toString());
 			((SeachData) this.data).mapData.put("xb", String
-					.valueOf(((CItem) spRenQun.getSelectedItem()).GetID()));
+					.valueOf(((CItem) spRenQun.getSelectedItem()).getId()));
+			((SeachData) this.data).mapData.put("ss", String
+					.valueOf(((CItem) spService.getSelectedItem()).getId()));
 			((SeachData) this.data).mapData.put("pp", String
-					.valueOf(((CItem) spPinPai.getSelectedItem()).GetID()));
-			((SeachData) this.data).mapData.put("text", getText());
+					.valueOf(((CItem) spPinPai.getSelectedItem()).getId()));
+			((SeachData) this.data).mapData.put("text", getShuxings());
 			if (!"".equals(str))
 				((SeachData) this.data).mapData.put("miaoshu", str);
 			ChanPinService.getInstans().getChanPin(getApp().getUname(),
@@ -300,22 +303,23 @@ public class SeachActivity extends BaseActivity<SeachData> {
 
 	// 点击筛选条件查询 响应的方法
 	public void findChanPinCodition(View paramView) {
-		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...",
-				true);
+		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...", true);
 		View localView = progressDialog.getWindow().getDecorView();
 		getApp().setViewFontSize(localView, 20);
 		progressDialog.setCancelable(true);
 		progressDialog.setIcon(R.drawable.ic_launcher);
-		String str = this.txtid.getText().toString().trim();
+		String str = txtid.getText().toString().trim();
 		((SeachData) this.data).mapData = new HashMap<String, String>();
 		((SeachData) this.data).mapData.put("page", "0");
 		((SeachData) this.data).mapData.put("lx",
 				((SeachData) this.data).lx.id.toString());
 		((SeachData) this.data).mapData.put("xb", String
-				.valueOf(((CItem) this.spRenQun.getSelectedItem()).GetID()));
+				.valueOf(((CItem) this.spRenQun.getSelectedItem()).getId()));
+		((SeachData) this.data).mapData.put("ss", String
+				.valueOf(((CItem) spService.getSelectedItem()).getId()));
 		((SeachData) this.data).mapData.put("pp", String
-				.valueOf(((CItem) this.spPinPai.getSelectedItem()).GetID()));
-		((SeachData) this.data).mapData.put("text", getText());
+				.valueOf(((CItem) this.spPinPai.getSelectedItem()).getId()));
+		((SeachData) this.data).mapData.put("text", getShuxings());
 		if (!"".equals(str))
 			((SeachData) this.data).mapData.put("miaoshu", "");
 		ChanPinService.getInstans().getChanPin(getApp().getUname(),
@@ -325,41 +329,40 @@ public class SeachActivity extends BaseActivity<SeachData> {
 
 	public void chanPinHandler(String paramString) {
 		progressDialog.dismiss();
-		SeacheVo localSeacheVo = (SeacheVo) new Gson().fromJson(paramString,
+		SeacheVo sv = (SeacheVo) new Gson().fromJson(paramString,
 				SeacheVo.class);
-		if (localSeacheVo.code == 0) {
-			if (localSeacheVo.cps.size() > 0) {
-				Intent localIntent = new Intent(this, ChanPinActivity.class);
-				Bundle localBundle = new Bundle();
-				ChanPinData localChanPinData = new ChanPinData();
-				localChanPinData.cpData = localSeacheVo.cps;
-				localChanPinData.mapData = ((SeachData) this.data).mapData;
-				if (localChanPinData.cpData.size() >= 5) {
+		if (sv.code == 0) {
+			if (sv.cps.size() > 0) {
+				Intent intent = new Intent(this, ChanPinActivity.class);
+				Bundle bundle = new Bundle();
+				ChanPinData chanPinData = new ChanPinData();
+				chanPinData.cpData = sv.cps;
+				chanPinData.mapData = ((SeachData) this.data).mapData;
+				if (chanPinData.cpData.size() >= 5) {
 					ChanPin chanPin = new ChanPin();
 					chanPin.id = Integer.valueOf(-1);
-					localChanPinData.cpData.add(chanPin);
+					chanPinData.cpData.add(chanPin);
 				}
-				localBundle.putString("cpd",
-						new Gson().toJson(localChanPinData));
-				localIntent.putExtras(localBundle);
-				startActivity(localIntent);
+				bundle.putString("cpd", new Gson().toJson(chanPinData));
+				intent.putExtras(bundle);
+				startActivity(intent);
 			} else {
 				Toast.makeText(this, "找不到您要的数据！", Toast.LENGTH_LONG).show();
 			}
 		} else {
-			Toast.makeText(this, localSeacheVo.msg, 1).show();
+			Toast.makeText(this, sv.msg, Toast.LENGTH_LONG).show();
 		}
 	}
 
-	private String getText() {
+	private String getShuxings() {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.shuxingLayout);
 		String str = "";
 		for (int i = 0; i < ll.getChildCount(); i++) {
 			Spinner spinner = (Spinner) ll.getChildAt(i);
 			CItem citem = (CItem) spinner.getSelectedItem();
-			if (citem.GetID() == -1)
+			if (citem.getId() == -1)
 				continue;
-			str = str + spinner.getTag().toString() + "_" + citem.GetID() + "|";
+			str = str + spinner.getTag().toString() + "_" + citem.getId() + "|";
 		}
 		if (str != "")
 			str = str.substring(0, str.length() - 1);

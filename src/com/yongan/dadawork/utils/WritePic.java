@@ -13,11 +13,11 @@ public class WritePic {
 	private BaseActivity context;
 	public int currentIndex;
 	public String data;
-	public String dh;
+	public String dh;//  产品id
 	public List<File> files = new ArrayList<File>();
 	public Handler handler;
 	public int oldSize = 0;
-	public int size = 0;
+	public int size = 0;//  图片序号
 
 	public WritePic(BaseActivity paramBaseActivity) {
 		this.context = paramBaseActivity;

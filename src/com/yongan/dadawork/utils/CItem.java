@@ -14,15 +14,15 @@ public class CItem {
 		this.Value = paramString;
 	}
 
-	public int GetID() {
-		return this.ID;
+	public int getId() {
+		return ID;
 	}
 
 	public String GetValue() {
-		return this.Value;
+		return Value;
 	}
 
 	public String toString() {
-		return this.Value;
+		return Value;
 	}
 }

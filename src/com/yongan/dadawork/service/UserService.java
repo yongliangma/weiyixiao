@@ -15,13 +15,13 @@ public class UserService {
 
 	public void downLoad(String uname, String uuid, String cpid,
 			Object context, String method) {
-		HashMap<String, String> localHashMap = new HashMap<String, String>();
-		localHashMap.put("interface", "download");
-		localHashMap.put("uname", uname);
-		localHashMap.put("uuid", uuid);
-		localHashMap.put("cpid", cpid);
-		HttpUtils.executePost(context, method, ServiceName.getInterface(),
-				localHashMap);
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		hashmap.put("interface", "download");
+		hashmap.put("uname", uname);
+		hashmap.put("uuid", uuid);
+		hashmap.put("cpid", cpid);
+		HttpUtils.executePost(context, method, ServiceName.downloadUrl,
+				hashmap);
 	}
 
 	public void login(String uname, String password, String uuid,
@@ -48,10 +48,10 @@ public class UserService {
 	}
 
 	public void readConfig(Object context, String method) {
-		HashMap<String, String> localHashMap = new HashMap<String, String>();
-		localHashMap.put("interface", "config");
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		hashmap.put("interface", "config");
 		HttpUtils.executePost(context, method, ServiceName.configUrl,
-				localHashMap);
+				hashmap);
 	}
 
 }

@@ -1,8 +1,13 @@
 package com.yongan.dadawork.activity.chanpin;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -13,12 +18,14 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yongan.dadawork.R;
 import com.yongan.dadawork.entity.ChanPin;
 import com.yongan.dadawork.entity.PinPai;
 import com.yongan.dadawork.entity.UserEntity;
 import com.yongan.dadawork.utils.ImageUtils;
+import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -34,10 +41,9 @@ public class ImageAdapter extends BaseAdapter {
 	private ImageLoadingListenerImpl mImageLoadingListenerImpl;
 	private String str;
 
-	public ImageAdapter(ChanPinActivity paramChanPinActivity,
-			List<ChanPin> paramList) {
-		this.context = paramChanPinActivity;
-		this.cpdata = paramList;
+	public ImageAdapter(ChanPinActivity activity, List<ChanPin> cpdata) {
+		this.context = activity;
+		this.cpdata = cpdata;
 		this.mDisplayImageOptions = new DisplayImageOptions.Builder()
 				.showStubImage(R.drawable.bg)
 				.showImageForEmptyUri(R.drawable.bg)
@@ -50,98 +56,100 @@ public class ImageAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return this.cpdata.size();
+		return cpdata.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		return (ChanPin) this.cpdata.get(arg0);
+		return (ChanPin) cpdata.get(arg0);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return 0L;
+		return 0;
 	}
 
 	@Override
-	public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
-		final ChanPin localChanPin = (ChanPin) this.cpdata.get(paramInt);
-		ViewHolder localViewHolder;
-		if (paramView == null) {
-			paramView = LayoutInflater.from(this.context).inflate(
-					R.layout.listitem_chanpin, paramViewGroup, false);
-			localViewHolder = new ViewHolder();
-			localViewHolder.title = ((TextView) paramView
-					.findViewById(R.id.txtTitle));
-			localViewHolder.content = ((TextView) paramView
+	public View getView(int position, View convertView, ViewGroup parent) {
+		final ChanPin chanpin = (ChanPin) this.cpdata.get(position);
+		ViewHolder holder;
+		if (convertView == null) {
+			convertView = LayoutInflater.from(this.context).inflate(
+					R.layout.listitem_chanpin, parent, false);
+			holder = new ViewHolder();
+			holder.title = ((TextView) convertView.findViewById(R.id.txtTitle));
+			holder.content = ((TextView) convertView
 					.findViewById(R.id.txtContent));
-			localViewHolder.img1 = ((ImageView) paramView
-					.findViewById(R.id.img1));
-			localViewHolder.txtLink = ((TextView) paramView
-					.findViewById(R.id.txtRiQi));
-			localViewHolder.txtGet = ((TextView) paramView
-					.findViewById(R.id.txtGet));
-			localViewHolder.btnXiangQing = ((Button) paramView
+			holder.img1 = ((ImageView) convertView.findViewById(R.id.img1));
+			holder.txtLink = ((TextView) convertView.findViewById(R.id.txtRiQi));
+			holder.txtGet = ((TextView) convertView.findViewById(R.id.txtGet));
+			holder.btnXiangQing = ((Button) convertView
 					.findViewById(R.id.btnXiangQing));
-			paramView.setTag(localViewHolder);
+			convertView.setTag(holder);
 		} else {
-			localViewHolder = (ViewHolder) paramView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 
 		ViewGroup.LayoutParams localLayoutParams;
-		localLayoutParams = paramView.getLayoutParams();
-		if (localChanPin.id.intValue() == -1) {
+		localLayoutParams = convertView.getLayoutParams();
+		if (chanpin.id.intValue() == -1) {
 			DisplayMetrics localDisplayMetrics = new DisplayMetrics();
 			this.context.getWindowManager().getDefaultDisplay()
 					.getMetrics(localDisplayMetrics);
 			localLayoutParams.height = (int) (0.1D * localDisplayMetrics.heightPixels);
-			localViewHolder.title.setVisibility(4);
-			localViewHolder.content.setVisibility(4);
-			localViewHolder.title.setVisibility(4);
-			localViewHolder.img1.setVisibility(4);
-			localViewHolder.txtGet.setVisibility(0);
-			localViewHolder.txtLink.setVisibility(4);
-			localViewHolder.btnXiangQing.setVisibility(4);
-			paramView.setLayoutParams(localLayoutParams);
+			holder.title.setVisibility(View.INVISIBLE);
+			holder.content.setVisibility(View.INVISIBLE);
+			holder.title.setVisibility(View.INVISIBLE);
+			holder.img1.setVisibility(View.INVISIBLE);
+			holder.txtGet.setVisibility(View.VISIBLE);
+			holder.txtLink.setVisibility(View.INVISIBLE);
+			holder.btnXiangQing.setVisibility(View.INVISIBLE);
+			convertView.setLayoutParams(localLayoutParams);
 		} else {
 			localLayoutParams.height = -1;
 			localLayoutParams.width = -1;
-			localViewHolder.title.setVisibility(0);
-			localViewHolder.content.setVisibility(0);
-			localViewHolder.title.setVisibility(0);
-			localViewHolder.img1.setVisibility(0);
-			localViewHolder.txtGet.setVisibility(4);
-			localViewHolder.txtLink.setVisibility(0);
-			localViewHolder.btnXiangQing.setVisibility(0);
-			paramView.setLayoutParams(localLayoutParams);
-			String str = "http://115.28.17.18:8080/data/" + localChanPin.id
-					+ "/small.jpg";
-			localViewHolder.img1.setTag(str);
-			localViewHolder.img1.setImageResource(R.drawable.bg);
-			setWidth = localViewHolder.img1.getDrawable().getIntrinsicWidth();
-			setHeght = localViewHolder.img1.getDrawable().getIntrinsicWidth();
-			ImageLoader.getInstance().displayImage(str, localViewHolder.img1,
+			holder.title.setVisibility(View.VISIBLE);
+			holder.content.setVisibility(View.VISIBLE);
+			holder.title.setVisibility(View.VISIBLE);
+			holder.img1.setVisibility(View.VISIBLE);
+			holder.txtGet.setVisibility(View.INVISIBLE);
+			holder.txtLink.setVisibility(View.VISIBLE);
+			holder.btnXiangQing.setVisibility(View.INVISIBLE);
+			convertView.setLayoutParams(localLayoutParams);
+			// String str = "http://115.28.17.18:8080/data/" + chanpin.id
+			// + "/small.jpg";
+			String str = "http://a.hiphotos.baidu.com/image/w%3D2048/sign=617f368d952bd40742c7d4fd4fb19f51/4b90f603738da97751492e8eb251f8198618e335.jpg";
+			holder.img1.setTag(str);
+			holder.img1.setImageResource(R.drawable.bg);
+			setWidth = holder.img1.getDrawable().getIntrinsicWidth();
+			setHeght = holder.img1.getDrawable().getIntrinsicWidth();
+			ImageLoader.getInstance().displayImage(str, holder.img1,
 					this.mDisplayImageOptions, this.mImageLoadingListenerImpl);
-			TextView localTextView1 = (TextView) paramView
-					.findViewById(R.id.txtTitle);
-			TextView localTextView2 = (TextView) paramView
-					.findViewById(R.id.txtContent);
-			localTextView1.setText(Html.fromHtml(getTitle(this.context.getApp()
-					.getLoginVo().ue, localChanPin)));
-			localTextView2.setText(Html.fromHtml(getContent(this.context
-					.getApp().getLoginVo().ue, localChanPin)));
-			localViewHolder.txtLink.setText(Html.fromHtml(getLink(this.context
-					.getApp().getLoginVo().ue, localChanPin)));
+			holder.title.setText(Html.fromHtml(getTitle(this.context.getApp()
+					.getLoginVo().ue, chanpin)));
+			holder.content.setText(Html.fromHtml(getContent(this.context
+					.getApp().getLoginVo().ue, chanpin)));
+			holder.txtLink.setText(Html.fromHtml(getLink(this.context.getApp()
+					.getLoginVo().ue, chanpin)));
 		}
 
-		localViewHolder.btnXiangQing.setOnClickListener(new OnClickListener() {
+		holder.btnXiangQing.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// context.switchXiangQing(localChanPin);
+				Intent intent = new Intent(context, GalleryActivity.class);
+				Bundle bundle = new Bundle();
+				GalleryData localGalleryData = new GalleryData();
+				localGalleryData.cp = chanpin;
+				bundle.putString("data", new Gson().toJson(localGalleryData));
+				intent.putExtras(bundle);
+				context.startActivity(intent);
+
+				// context.switchXiangQing(chanpin);
+				// Toast.makeText(context, "点击了详情", Toast.LENGTH_LONG).show();
 			}
 		});
 
-		return paramView;
+		return convertView;
 	}
 
 	public String getContent(UserEntity paramUserEntity, ChanPin paramChanPin) {
@@ -204,29 +212,38 @@ public class ImageAdapter extends BaseAdapter {
 			str = "<font>编号：" + paramChanPin.id + "  日期："
 			// + paramChanPin.shijian.subSequence(0, -8
 			// + paramChanPin.shijian.length()) +
-					+ paramChanPin.createTime + "</font>";
+					+ getShowTime(paramChanPin.createTime) + "</font>";
 		} else {
 			str = "<font color='#ff0000'>商品已下架  日期："
 			// + paramChanPin.shijian.subSequence(0, -8
 			// + paramChanPin.shijian.length()) +
-					+ paramChanPin.createTime + "</font>";
+					+ getShowTime(paramChanPin.createTime) + "</font>";
 		}
 
 		return str;
 	}
 
-	public String getTitle(UserEntity paramUserEntity, ChanPin paramChanPin) {
+	public String getTitle(UserEntity ue, ChanPin chanpin) {
 		String str;
-		int i = paramUserEntity.xzStr.indexOf(paramChanPin.id.toString());
-		PinPai localPinPai = this.context.getApp().findPinPaiById(
-				paramChanPin.pinpaiId);
+		int i = ue.xzStr.indexOf(chanpin.id.toString());
+		PinPai pinpai = context.getApp().findPinPaiById(chanpin.pinpaiId);
 		if (i == -1)
-			str = "<b>" + localPinPai.cname + "(" + localPinPai.ename + ")</b>";
+			str = "<b>" + pinpai.cname + "(" + pinpai.ename + ")</b>";
 		else {
-			str = "<font color='#ff0000'><b>" + localPinPai.cname + "("
-					+ localPinPai.ename + ")</b></font>";
+			str = "<font color='#ff0000'><b>" + pinpai.cname + "("
+					+ pinpai.ename + ")</b></font>";
 		}
 		return str;
+	}
+
+	public static final String DATE_FORMAT_TIME = "yyyy-MM-dd";
+
+	public String getShowTime(String sendtime) {
+		Long sendDateMillis = Long.parseLong(sendtime);
+		Date date = new Date(sendDateMillis);
+		SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT_TIME);
+		String dateString = formatter.format(date);
+		return dateString;
 	}
 
 	public void shuaxinData() {

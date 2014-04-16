@@ -95,22 +95,22 @@ public class OurApplication extends Application {
 		return localXingBie;
 	}
 
-	public PinPai findPinPaiById(Integer paramInteger) {
-		Object localObject = null;
-		Iterator localIterator = this.loginVo.baseData.pps.iterator();
-		while (localIterator.hasNext()) {
-			PinPai localPinPai = (PinPai) localIterator.next();
-			if (!localPinPai.id.equals(paramInteger))
+	public PinPai findPinPaiById(Integer id) {
+		Object object = null;
+		Iterator iterator = this.loginVo.baseData.pps.iterator();
+		while (iterator.hasNext()) {
+			PinPai pinpai = (PinPai) iterator.next();
+			if (!pinpai.id.equals(id))
 				continue;
-			localObject = localPinPai;
+			object = pinpai;
 		}
-		if (localObject == null) {
-			localObject = new PinPai();
-			((PinPai) localObject).id = Integer.valueOf(0);
-			((PinPai) localObject).cname = "重新登录";
-			((PinPai) localObject).ename = "即可显示";
+		if (object == null) {
+			object = new PinPai();
+			((PinPai) object).id = Integer.valueOf(0);
+			((PinPai) object).cname = "重新登录";
+			((PinPai) object).ename = "即可显示";
 		}
-		return (PinPai) localObject;
+		return (PinPai) object;
 	}
 
 	public Config getConfig() {

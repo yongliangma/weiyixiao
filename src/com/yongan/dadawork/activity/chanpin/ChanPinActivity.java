@@ -45,9 +45,9 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 			this.data = ((ChanPinData) new Gson().fromJson(
 					bundle.getString("data"), ChanPinData.class));
 		} else {
-			Bundle localBundle = getIntent().getExtras();
+			Bundle bundle1 = getIntent().getExtras();
 			this.data = ((ChanPinData) new Gson().fromJson(
-					localBundle.getString("cpd"), ChanPinData.class));
+					bundle1.getString("cpd"), ChanPinData.class));
 		}
 
 		setContentView(R.layout.activity_chanpin);
@@ -78,12 +78,13 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 						progressDialog.setCancelable(true);
 						progressDialog.setIcon(R.drawable.ic_launcher);
 
-						UserService.getInstans().downLoad(
-								ChanPinActivity.this.getApp().getUname(),
-								ChanPinActivity.this.getApp().getUuid(),
-								((ChanPinData) ChanPinActivity.this.data).cp.id
-										.toString(), ChanPinActivity.this,
-								"downLoadHandler");
+//						UserService.getInstans().downLoad(
+//								getApp().getUname(),
+//								getApp().getUuid(),
+//								((ChanPinData) data).cp.id
+//										.toString(), ChanPinActivity.this,
+//								"downLoadHandler");
+						downLoadHandler("{\"code\":0,\"msg\":\"\"}");
 					} else {
 						progressDialog = ProgressDialog.show(
 								ChanPinActivity.this, "请稍等...", "正在获取商品数据...",
@@ -151,13 +152,15 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 	}
 
 	public void downLoadHandler(String paramString) {
+
+		
 		ObjectVo localObjectVo = (ObjectVo) new Gson().fromJson(paramString,
 				ObjectVo.class);
 		if (localObjectVo.code == 0) {
 			this.wp = new WritePic(this);
-			this.wp.oldSize = ((ChanPinData) this.data).cp.pics.intValue();
+			this.wp.oldSize = ((ChanPinData) this.data).cp.pics.intValue();//图片序号
 			this.wp.size = 0;
-			this.wp.dh = ((ChanPinData) this.data).cp.id.toString();
+			this.wp.dh = ((ChanPinData) this.data).cp.id.toString();//产品id
 			this.wp.handler = new Handler() {
 				@Override
 				public void handleMessage(Message msg) {
@@ -213,7 +216,7 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 	}
 
 	private void showList() {
-		ia = new ImageAdapter(this, ((ChanPinData) this.data).cpData);
+		ia = new ImageAdapter(this, ((ChanPinData) data).cpData);
 		lv.setAdapter(this.ia);
 	}
 

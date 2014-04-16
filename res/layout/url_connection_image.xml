@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
-    <com.example.dadawork.activity.chanpin.GuideGallery
+    <com.yongan.dadawork.activity.chanpin.GuideGallery
         android:id="@id/image_wall_gallery"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
