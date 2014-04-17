@@ -26,8 +26,8 @@ public class LoginActivity extends BaseActivity {
 	private EditText txtPsd;
 	private TextView txtShenMing;
 
-	protected void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		instans = this;
 		txtName = ((EditText) findViewById(R.id.txtName));
@@ -75,20 +75,20 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	public void loginHandler(String jsonString) {
-		// 待完善
 		progressDialog.dismiss();
-		LoginVo localLoginVo = (LoginVo) new Gson().fromJson(jsonString,
+		LoginVo loginVo = (LoginVo) new Gson().fromJson(jsonString,
 				LoginVo.class);
-		if (localLoginVo.code == 0) {
-			showMessage("亲！欢迎登陆！");
-			if (getApp().getOpenSy().equals(""))
+		if (loginVo.code == 0) {
+			showMessage("欢迎来到微易销！");
+			if (getApp().getOpenSy().equals("")) {
 				getApp().setOpenSy("1");
-			getApp().setLoginVo(localLoginVo);
-			getApp().saveShared("uname", localLoginVo.ue.userName);
-			getApp().saveShared("psd", localLoginVo.ue.psd);
+			}
+			getApp().setLoginVo(loginVo);
+			getApp().saveShared("uname", loginVo.ue.userName);
+			getApp().saveShared("psd", loginVo.ue.psd);
 			startActivity(new Intent(this, MainActivity.class));
 		} else {
-			Toast.makeText(this, localLoginVo.msg, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, loginVo.msg, Toast.LENGTH_LONG).show();
 		}
 		finish();
 	}

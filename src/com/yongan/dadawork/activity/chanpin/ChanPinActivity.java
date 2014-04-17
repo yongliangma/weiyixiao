@@ -26,7 +26,6 @@ import com.yongan.dadawork.entity.ChanPin;
 import com.yongan.dadawork.entity.PinPai;
 import com.yongan.dadawork.entity.UserEntity;
 import com.yongan.dadawork.service.ChanPinService;
-import com.yongan.dadawork.service.UserService;
 import com.yongan.dadawork.utils.WritePic;
 import com.yongan.dadawork.vo.ObjectVo;
 import com.yongan.dadawork.vo.SeacheVo;
@@ -39,11 +38,11 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 	private ProgressDialog progressDialog = null;
 	private WritePic wp;
 
-	protected void onCreate(Bundle bundle) {
-		super.onCreate(bundle);
-		if (bundle != null) {
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		if (savedInstanceState != null) {
 			this.data = ((ChanPinData) new Gson().fromJson(
-					bundle.getString("data"), ChanPinData.class));
+					savedInstanceState.getString("data"), ChanPinData.class));
 		} else {
 			Bundle bundle1 = getIntent().getExtras();
 			this.data = ((ChanPinData) new Gson().fromJson(
@@ -78,12 +77,12 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 						progressDialog.setCancelable(true);
 						progressDialog.setIcon(R.drawable.ic_launcher);
 
-//						UserService.getInstans().downLoad(
-//								getApp().getUname(),
-//								getApp().getUuid(),
-//								((ChanPinData) data).cp.id
-//										.toString(), ChanPinActivity.this,
-//								"downLoadHandler");
+						// UserService.getInstans().downLoad(
+						// getApp().getUname(),
+						// getApp().getUuid(),
+						// ((ChanPinData) data).cp.id
+						// .toString(), ChanPinActivity.this,
+						// "downLoadHandler");
 						downLoadHandler("{\"code\":0,\"msg\":\"\"}");
 					} else {
 						progressDialog = ProgressDialog.show(
@@ -100,9 +99,9 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 			});
 	}
 
-	public void resultHandler(String paramString) {
+	public void resultHandler(String jsonString) {
 		this.progressDialog.dismiss();
-		SeacheVo localSeacheVo = (SeacheVo) new Gson().fromJson(paramString,
+		SeacheVo localSeacheVo = (SeacheVo) new Gson().fromJson(jsonString,
 				SeacheVo.class);
 		if (localSeacheVo.code == 0) {
 			((ChanPinData) this.data).cpData.remove(-1
@@ -134,15 +133,15 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 						getApp().getUuid(), ((ChanPinData) this.data).mapData,
 						this, "resultHandler");
 			} else {
-				HashMap<String, String> localHashMap = new HashMap<String, String>();
-				localHashMap.put("page",
+				HashMap<String, String> hashMap = new HashMap<String, String>();
+				hashMap.put("page",
 						String.valueOf(((ChanPinData) this.data).page));
-				localHashMap.put("dangkou",
+				hashMap.put("dangkou",
 						(String) ((ChanPinData) this.data).mapData
 								.get("dangkou"));
 				ChanPinService.getInstans().getChanPinByDangkou(
-						getApp().getUname(), getApp().getUuid(), localHashMap,
-						this, "resultHandler");
+						getApp().getUname(), getApp().getUuid(), hashMap, this,
+						"resultHandler");
 
 			}
 		} else {
@@ -153,14 +152,13 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 
 	public void downLoadHandler(String paramString) {
 
-		
-		ObjectVo localObjectVo = (ObjectVo) new Gson().fromJson(paramString,
+		ObjectVo objectVo = (ObjectVo) new Gson().fromJson(paramString,
 				ObjectVo.class);
-		if (localObjectVo.code == 0) {
+		if (objectVo.code == 0) {
 			this.wp = new WritePic(this);
-			this.wp.oldSize = ((ChanPinData) this.data).cp.pics.intValue();//图片序号
+			this.wp.oldSize = ((ChanPinData) this.data).cp.pics.intValue();// 图片序号
 			this.wp.size = 0;
-			this.wp.dh = ((ChanPinData) this.data).cp.id.toString();//产品id
+			this.wp.dh = ((ChanPinData) this.data).cp.id.toString();// 产品id
 			this.wp.handler = new Handler() {
 				@Override
 				public void handleMessage(Message msg) {
@@ -211,7 +209,7 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 			this.wp.startLoad();
 		} else {
 			progressDialog.dismiss();
-			Toast.makeText(this, localObjectVo.msg, 0).show();
+			Toast.makeText(this, objectVo.msg, 0).show();
 		}
 	}
 
@@ -220,8 +218,8 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 		lv.setAdapter(this.ia);
 	}
 
-	public void copyMiaoshu(String paramString) {
-		((ClipboardManager) getSystemService("clipboard")).setText(paramString);
+	public void copyMiaoshu(String text) {
+		((ClipboardManager) getSystemService("clipboard")).setText(text);
 	}
 
 	private void shareMultiplePictureToTimeLine(List<File> files) {
@@ -230,22 +228,12 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 				"com.tencent.mm.ui.tools.ShareToTimeLineUI"));
 		intent.setAction(Intent.ACTION_SEND_MULTIPLE);
 		intent.setType("image/*");
-		ArrayList<Uri> localArrayList = new ArrayList<Uri>();
+		ArrayList<Uri> arrayList = new ArrayList<Uri>();
 		Iterator<File> iterator = files.iterator();
 		while (iterator.hasNext()) {
-			localArrayList.add(Uri.fromFile((File) iterator.next()));
+			arrayList.add(Uri.fromFile((File) iterator.next()));
 		}
-		intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, localArrayList);
-		startActivity(intent);
-	}
-
-	public void switchXiangQing(ChanPin localChanPin) {
-		Intent intent = new Intent(this, GalleryActivity.class);
-		Bundle bundle = new Bundle();
-		GalleryData localGalleryData = new GalleryData();
-		localGalleryData.cp = localChanPin;
-		bundle.putString("data", new Gson().toJson(localGalleryData));
-		intent.putExtras(bundle);
+		intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayList);
 		startActivity(intent);
 	}
 }

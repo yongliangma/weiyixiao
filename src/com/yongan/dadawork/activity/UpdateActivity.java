@@ -25,10 +25,11 @@ public class UpdateActivity extends BaseActivity {
 	private static final int DOWNLOAD_APK_ING = 1;
 	private static final int DOWNLOAD_APK_FINISH = 2;
 
-	protected void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_update);
 		txtLoad = ((TextView) findViewById(R.id.txtDown));
+//		urlStr=getApp().getConfig().dxurl;//获得真正的下载地址
 		startLoad();
 	}
 

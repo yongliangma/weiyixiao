@@ -20,8 +20,8 @@ public class LoaderActivity extends BaseActivity {
 	private static final long SPLASH_DELAY_MILLIS = 500L;
 	public static Activity instanse;
 
-	protected void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_loader);
 		instanse = this;
 		((ImageView) findViewById(R.id.imageView1))

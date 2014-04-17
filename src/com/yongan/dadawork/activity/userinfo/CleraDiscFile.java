@@ -12,27 +12,25 @@ public class CleraDiscFile extends Thread {
 	public UserInfoActivity context;
 	public ProgressDialog progressDialog;
 
-	public CleraDiscFile(UserInfoActivity paramUserInfoActivity,
-			ProgressDialog paramProgressDialog) {
-		this.context = paramUserInfoActivity;
-		this.progressDialog = paramProgressDialog;
+	public CleraDiscFile(UserInfoActivity activity, ProgressDialog pd) {
+		this.context = activity;
+		this.progressDialog = pd;
 	}
 
 	public void run() {
 		ImageLoader.getInstance().clearDiscCache();
 		File localFile = new File(WritePic.sdkUrl);
-		final File[] arrayOfFile;
+		final File[] files;
 		if (localFile.exists()) {
-			arrayOfFile = localFile.listFiles();
-
-			for (int i = 0; i < arrayOfFile.length; i++) {
-				arrayOfFile[i].delete();
+			files = localFile.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				files[i].delete();
 				final int j = i;
 				context.handler.post(new Runnable() {
 					@Override
 					public void run() {
 						progressDialog.setMessage("清理磁盘文件" + (1 + j) + "/"
-								+ arrayOfFile.length);
+								+ files.length);
 					}
 				});
 			}

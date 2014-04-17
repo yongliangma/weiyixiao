@@ -21,27 +21,26 @@ import com.yongan.dadawork.activity.LoginActivity;
 import com.yongan.dadawork.entity.UserEntity;
 
 public class UserInfoActivity extends BaseActivity {
-	private Button btnBackLogin;
-	private Button btnClearMemory;
-	private Button btnCloseSy;
-	private Button btnExit;
-	private Button btnStartSy;
-	public Handler handler;
-	private boolean isExit = false;
-	private ProgressDialog progressDialog = null;
-	private TextView txtDaoQi;
-	private TextView txtShenFen;
 	private TextView txtUname;
+	private TextView txtShenFen;
+	private TextView txtDaoQi;
+	private Button btnCloseSy;
+	private Button btnStartSy;
+	private Button btnClearMemory;// 清理缓存
+	private Button btnBackLogin;// 返回登录
+	private Button btnExit;
+	public Handler handler;
+	private ProgressDialog progressDialog = null;
 
-	protected void onCreate(Bundle bundle) {
-		super.onCreate(bundle);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_userinfo);
-		UserEntity localUserEntity = getApp().getLoginVo().ue;
-		this.handler = new Handler();
-		this.txtUname = ((TextView) findViewById(R.id.txtUname));
-		this.txtUname.setText("亲爱的：" + localUserEntity.userName);
-		this.txtShenFen = ((TextView) findViewById(R.id.txtShenFen));
-		this.txtDaoQi = ((TextView) findViewById(R.id.txtDaoQi));
+		UserEntity userEntity = getApp().getLoginVo().ue;
+		handler = new Handler();
+		txtUname = ((TextView) findViewById(R.id.txtUname));
+		txtUname.setText("亲爱的：" + userEntity.userName);
+		txtShenFen = ((TextView) findViewById(R.id.txtShenFen));
+		txtDaoQi = ((TextView) findViewById(R.id.txtDaoQi));
 
 		btnCloseSy = ((Button) findViewById(R.id.btnCloseSy));
 		setButtonSkin(btnCloseSy);
@@ -102,23 +101,18 @@ public class UserInfoActivity extends BaseActivity {
 				getApp().exitApp();
 			}
 		});
-		this.txtShenFen.setText(Html.fromHtml("您当前是：<font >正式用户</font>"));
-		this.txtDaoQi.setText(Html
-				.fromHtml("有效时间：<font color=#ff0000>永久</font>"));
-		if (localUserEntity.qx.intValue() == 0) {
-			this.txtShenFen.setText(Html.fromHtml("您当前是：<font>试用用户</font>"));
-			if (localUserEntity.daoqi == null) {
-				txtDaoQi.setText(Html
-						.fromHtml("有效时间：<font color=#ff0000>永久</font>"));
-			} else {
-				SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
-						"yyyy-MM-dd");
-				this.txtDaoQi.setText(Html.fromHtml("有效时间：<font color=#ff0000>"
-						+ localSimpleDateFormat.format(localUserEntity.daoqi)
-						+ "</font>"));
-			}
+		if (userEntity.qx.intValue() == 0) {
+			txtShenFen.setText(Html.fromHtml("您当前是：<font>试用用户</font>"));
+			txtDaoQi.setText(Html
+					.fromHtml("有效时间：<font color=#ff0000>永久</font>"));
+		} else {
+			txtShenFen.setText(Html.fromHtml("您当前是：<font>正式用户</font>"));
+			SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
+					"yyyy-MM-dd");
+			txtDaoQi.setText(Html.fromHtml("有效时间：<font color=#ff0000>"
+					+ localSimpleDateFormat.format(userEntity.daoqi)
+					+ "</font>"));
 		}
-
 	}
 
 	private void setButtonSkin(Button button) {

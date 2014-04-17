@@ -61,12 +61,12 @@ public class SeachActivity extends BaseActivity<SeachData> {
 	private Spinner spWatchband;// 手表表带
 	public EditText txtid;
 
-	protected void onCreate(Bundle bundle) {
-		super.onCreate(bundle);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_seach);
 
-		if (bundle != null) {
-			data = ((SeachData) new Gson().fromJson(bundle.getString("data"),
+		if (savedInstanceState != null) {
+			data = ((SeachData) new Gson().fromJson(savedInstanceState.getString("data"),
 					SeachData.class));
 		} else {
 			data = new SeachData();

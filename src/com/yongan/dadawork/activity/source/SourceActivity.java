@@ -27,8 +27,8 @@ public class SourceActivity extends BaseActivity {
 				getApp().getUuid(), this, "sourceHandler");
 	}
 
-	protected void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_source);
 		ListView localListView = (ListView) findViewById(R.id.lvSource);
 		ArrayList<Bazaar> localArrayList = new ArrayList<Bazaar>();

@@ -13,6 +13,7 @@ public class UserService {
 		return instans;
 	}
 
+	//下载产品，把产品id写到用户的xzStr字段中，以表明用户下载过这个产品
 	public void downLoad(String uname, String uuid, String cpid,
 			Object context, String method) {
 		HashMap<String, String> hashmap = new HashMap<String, String>();

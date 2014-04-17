@@ -158,11 +158,11 @@ public class OurApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		instanse = this;
-		ImageLoaderConfiguration localImageLoaderConfiguration = new ImageLoaderConfiguration.Builder(
+		ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(
 				this).threadPoolSize(3).threadPriority(4)
 				.tasksProcessingOrder(QueueProcessingType.FIFO)
 				.denyCacheImageMultipleSizesInMemory().build();
-		ImageLoader.getInstance().init(localImageLoaderConfiguration);
+		ImageLoader.getInstance().init(imageLoaderConfiguration);
 	}
 
 	public void saveShared(String key, String value) {

@@ -44,8 +44,8 @@ public class MainActivity extends ActivityGroup {
 	private List<ImageView> tabImageViews = null;
 	public int tabIndex = 1;
 
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mContext = getApplicationContext();
 		mainTab = (LinearLayout) findViewById(R.id.main_tab);
@@ -134,15 +134,22 @@ public class MainActivity extends ActivityGroup {
 
 				@Override
 				public void onClick(View v) {
+					// 判断用户是否有高级权限
 					tabIndex = (Integer) (v.getTag());
-					setContainerView("tab" + tabIndex,
-							getTabActivitys().get(tabIndex));
-					for (int j = 0; j < tabSize; j++) {
-						tabImageViews.get(j).setBackgroundResource(
-								getTabNormalImages().get(j));
+					if (tabIndex == 2
+							&& OurApplication.instanse.getLoginVo().ue.qx == 0) {
+						Toast.makeText(mContext, "您现有权限无法使用此功能",
+								Toast.LENGTH_LONG).show();
+					} else {
+						setContainerView("tab" + tabIndex, getTabActivitys()
+								.get(tabIndex));
+						for (int j = 0; j < tabSize; j++) {
+							tabImageViews.get(j).setBackgroundResource(
+									getTabNormalImages().get(j));
+						}
+						tabImageViews.get(tabIndex).setBackgroundResource(
+								getTabPressImages().get(tabIndex));
 					}
-					tabImageViews.get(tabIndex).setBackgroundResource(
-							getTabPressImages().get(tabIndex));
 				}
 
 			});

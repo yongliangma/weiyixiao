@@ -26,8 +26,8 @@ public class RegisterActity extends BaseActivity {
 
 	private TextView txtMiaoShu;
 
-	protected void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		txtName = ((EditText) findViewById(R.id.txtName));
 		txtPsd = ((EditText) findViewById(R.id.txtPsd));
