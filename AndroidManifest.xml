@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yongan.dadawork"
+    package="com.yongan.weiyixiao"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -13,13 +13,13 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.yongan.dadawork.activity.OurApplication"
+        android:name="com.yongan.weiyixiao.activity.OurApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.yongan.dadawork.activity.LoaderActivity"
+            android:name="com.yongan.weiyixiao.activity.LoaderActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -30,53 +30,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.yongan.dadawork.activity.UpdateActivity"
+            android:name="com.yongan.weiyixiao.activity.UpdateActivity"
             android:label="版本升级"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.yongan.dadawork.activity.seach.SeachActivity"
+            android:name="com.yongan.weiyixiao.activity.seach.SeachActivity"
             android:label="产品查询"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.yongan.dadawork.activity.RegisterActity"
+            android:name="com.yongan.weiyixiao.activity.RegisterActity"
             android:label="注册界面"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name="com.yongan.dadawork.activity.IndexActivity"
+            android:name="com.yongan.weiyixiao.activity.IndexActivity"
             android:label="首页"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.yongan.dadawork.activity.LoginActivity"
+            android:name="com.yongan.weiyixiao.activity.LoginActivity"
             android:label="用户登录"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.yongan.dadawork.activity.chanpin.ChanPinActivity"
+            android:name="com.yongan.weiyixiao.activity.chanpin.ChanPinActivity"
             android:label="产品列表 \u0020\u0020\u0020单击可上传到微信"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yongan.dadawork.activity.chanpin.GalleryActivity"
+            android:name="com.yongan.weiyixiao.activity.chanpin.GalleryActivity"
             android:label="产品详情"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yongan.dadawork.activity.MainActivity"
+            android:name="com.yongan.weiyixiao.activity.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.yongan.dadawork.activity.userinfo.UserInfoActivity"
+            android:name="com.yongan.weiyixiao.activity.userinfo.UserInfoActivity"
             android:label="用户信息"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yongan.dadawork.activity.source.SourceActivity"
+            android:name="com.yongan.weiyixiao.activity.source.SourceActivity"
             android:label="资源导航"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yongan.dadawork.activity.source.SourceListActivity"
+            android:name="com.yongan.weiyixiao.activity.source.SourceListActivity"
             android:label="资源导航"
             android:screenOrientation="portrait" />
     </application>
