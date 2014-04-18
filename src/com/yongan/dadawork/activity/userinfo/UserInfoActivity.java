@@ -109,9 +109,12 @@ public class UserInfoActivity extends BaseActivity {
 			txtShenFen.setText(Html.fromHtml("您当前是：<font>正式用户</font>"));
 			SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
 					"yyyy-MM-dd");
+//			txtDaoQi.setText(Html.fromHtml("有效时间：<font color=#ff0000>"
+//					+ localSimpleDateFormat.format(userEntity.daoqi)
+//					+ "</font>"));
 			txtDaoQi.setText(Html.fromHtml("有效时间：<font color=#ff0000>"
-					+ localSimpleDateFormat.format(userEntity.daoqi)
-					+ "</font>"));
+					+ localSimpleDateFormat.format(Long
+							.parseLong("1392683324244")) + "</font>"));
 		}
 	}
 

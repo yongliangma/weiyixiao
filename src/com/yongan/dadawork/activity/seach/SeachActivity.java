@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,6 @@ public class SeachActivity extends BaseActivity<SeachData> {
 	private Button btnClear;
 	private Button btnFind;
 	private Button btnFindCodition;
-	private boolean isExit = false;
 	private ProgressDialog progressDialog;
 	private Spinner spBq;// 品质
 	private Spinner spBt;// 包包类型
@@ -269,7 +269,6 @@ public class SeachActivity extends BaseActivity<SeachData> {
 
 	// 点击查询结果 响应的方法
 	public void findChanPin(View paramView) {
-		this.isExit = false;
 		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...", true);
 		View localView = progressDialog.getWindow().getDecorView();
 		getApp().setViewFontSize(localView, 20);
@@ -327,9 +326,9 @@ public class SeachActivity extends BaseActivity<SeachData> {
 				"chanPinHandler");
 	}
 
-	public void chanPinHandler(String paramString) {
+	public void chanPinHandler(String jsonString) {
 		progressDialog.dismiss();
-		SeacheVo sv = (SeacheVo) new Gson().fromJson(paramString,
+		SeacheVo sv = (SeacheVo) new Gson().fromJson(jsonString,
 				SeacheVo.class);
 		if (sv.code == 0) {
 			if (sv.cps.size() > 0) {
@@ -369,6 +368,25 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		return str;
 	}
 
+	private long exitTime = 0;
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), "再按一次退出程序",
+						Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+				System.exit(0);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 	class ClassButton extends RelativeLayout {
 		private ImageView imageView;
 		private LeiXing lx;

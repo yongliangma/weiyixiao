@@ -88,9 +88,10 @@ public final class R {
         public static final int linearLayout1=0x7f050029;
         public static final int lv=0x7f05002f;
         public static final int lvSource=0x7f05000e;
-        public static final int main_tab=0x7f050037;
-        public static final int main_tab_banner=0x7f050036;
-        public static final int main_tab_container=0x7f050038;
+        public static final int lvSourceList=0x7f050036;
+        public static final int main_tab=0x7f050038;
+        public static final int main_tab_banner=0x7f050037;
+        public static final int main_tab_container=0x7f050039;
         public static final int scrollView1=0x7f050004;
         public static final int scrollView2=0x7f05001e;
         public static final int shuxingLayout=0x7f050023;
@@ -130,13 +131,14 @@ public final class R {
         public static final int activity_register=0x7f030005;
         public static final int activity_seach=0x7f030006;
         public static final int activity_source=0x7f030007;
-        public static final int activity_update=0x7f030008;
-        public static final int activity_userinfo=0x7f030009;
-        public static final int class_button=0x7f03000a;
-        public static final int listitem_chanpin=0x7f03000b;
-        public static final int listitem_source=0x7f03000c;
-        public static final int listitem_source_list=0x7f03000d;
-        public static final int url_connection_image=0x7f03000e;
+        public static final int activity_source_list=0x7f030008;
+        public static final int activity_update=0x7f030009;
+        public static final int activity_userinfo=0x7f03000a;
+        public static final int class_button=0x7f03000b;
+        public static final int listitem_chanpin=0x7f03000c;
+        public static final int listitem_source=0x7f03000d;
+        public static final int listitem_source_list=0x7f03000e;
+        public static final int url_connection_image=0x7f03000f;
     }
     public static final class string {
         public static final int app_name=0x7f060000;

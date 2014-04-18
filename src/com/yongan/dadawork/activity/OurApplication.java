@@ -4,7 +4,10 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.yongan.dadawork.activity.source.SourceUserVo;
 import com.yongan.dadawork.entity.LeiXing;
+import com.yongan.dadawork.entity.Link;
 import com.yongan.dadawork.entity.PinPai;
 import com.yongan.dadawork.entity.XingBie;
 import com.yongan.dadawork.utils.Config;
@@ -111,6 +114,22 @@ public class OurApplication extends Application {
 			((PinPai) object).ename = "即可显示";
 		}
 		return (PinPai) object;
+	}
+
+	public List<SourceUserVo> getSourceList(String paramString) {
+		ArrayList<SourceUserVo> suvList = new ArrayList<SourceUserVo>();
+		Iterator localIterator = getLoginVo().baseData.links.iterator();
+		while (localIterator.hasNext()) {
+			Link link = (Link) localIterator.next();
+			if (link.name.indexOf(paramString) != -1) {
+				SourceUserVo localSourceUserVo = new SourceUserVo();
+				localSourceUserVo.name = "";
+				localSourceUserVo.dangkou = link.name;
+				localSourceUserVo.miaoshu = "暂未提供任何厂商描述！";
+				suvList.add(localSourceUserVo);
+			}
+		}
+		return suvList;
 	}
 
 	public Config getConfig() {

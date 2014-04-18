@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@id/lvSourceList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtName" />
+
+    <EditText
+        android:id="@id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="40.0dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/btnFind"
+        android:background="@drawable/text"
+        android:ems="10"
+        android:hint="输入文字搜索"
+        android:paddingLeft="10.0dip"
+        android:textSize="18.0dip"
+        android:visibility="gone" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@id/btnFind"
+        android:layout_width="85.0dip"
+        android:layout_height="42.0dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="findSource"
+        android:text="搜索"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@id/config_hidden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

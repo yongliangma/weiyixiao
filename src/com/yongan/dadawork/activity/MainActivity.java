@@ -65,23 +65,24 @@ public class MainActivity extends ActivityGroup {
 				});
 
 		initTab();
-
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		for (int j = 0; j < tabSize; j++) {
-			tabImageViews.get(j).setBackgroundResource(
-					getTabNormalImages().get(j));
-		}
-		int tabnum = PreferenceManager.getDefaultSharedPreferences(mContext)
-				.getInt("tabNum", 1);
-		tabImageViews.get(tabnum).setBackgroundResource(
-				getTabPressImages().get(tabnum));
 		localActivityManager = getLocalActivityManager();
-		setContainerView("tab" + tabnum, getTabActivitys().get(tabnum));
+		setContainerView("tab1", getTabActivitys().get(1));
 	}
+
+//	@Override
+//	protected void onResume() {
+//		super.onResume();
+//		for (int j = 0; j < tabSize; j++) {
+//			tabImageViews.get(j).setBackgroundResource(
+//					getTabNormalImages().get(j));
+//		}
+//		int tabnum = PreferenceManager.getDefaultSharedPreferences(mContext)
+//				.getInt("tabNum", 1);
+//		tabImageViews.get(tabnum).setBackgroundResource(
+//				getTabPressImages().get(tabnum));
+//		localActivityManager = getLocalActivityManager();
+//		setContainerView("tab" + tabnum, getTabActivitys().get(tabnum));
+//	}
 
 	public List<Class<?>> getTabActivitys() {
 		return mTabActivitys;

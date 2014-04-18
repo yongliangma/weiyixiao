@@ -16,28 +16,28 @@ public class SourceAdapter extends BaseAdapter {
 	private BaseActivity context;
 	private List<Bazaar> data;
 
-	public SourceAdapter(BaseActivity paramBaseActivity, List<Bazaar> paramList) {
-		this.context = paramBaseActivity;
-		this.data = paramList;
+	public SourceAdapter(BaseActivity activity, List<Bazaar> dataList) {
+		this.context = activity;
+		this.data = dataList;
 	}
 
 	public int getCount() {
 		return data.size();
 	}
 
-	public Object getItem(int paramInt) {
-		return data.get(paramInt);
+	public Object getItem(int pos) {
+		return data.get(pos);
 	}
 
-	public long getItemId(int paramInt) {
+	public long getItemId(int pos) {
 		return 0L;
 	}
 
-	public View getView(int position, View convertView, ViewGroup paramViewGroup) {
+	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(this.context).inflate(
-					R.layout.listitem_source, paramViewGroup, false);
+			convertView = LayoutInflater.from(context).inflate(
+					R.layout.listitem_source, parent, false);
 			holder = new ViewHolder();
 			holder.title = ((TextView) convertView.findViewById(R.id.txtBname));
 			holder.address = ((TextView) convertView
@@ -46,9 +46,9 @@ public class SourceAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		Bazaar localBazaar = (Bazaar) data.get(position);
-		holder.title.setText(localBazaar.name);
-		holder.address.setText(localBazaar.address);
+		Bazaar bazaar = (Bazaar) data.get(position);
+		holder.title.setText(bazaar.name);
+		holder.address.setText(bazaar.address);
 		return convertView;
 	}
 

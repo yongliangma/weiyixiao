@@ -55,5 +55,6 @@
     <item name="ImageView01" type="id"/>
     <item name="txtLingShou" type="id"/>
     <item name="txtPrice" type="id"/>
+    <item name="lvSourceList" type="id"/>
 
 </resources>
