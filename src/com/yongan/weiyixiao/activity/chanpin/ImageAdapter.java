@@ -25,6 +25,7 @@ import com.yongan.weiyixiao.entity.ChanPin;
 import com.yongan.weiyixiao.entity.PinPai;
 import com.yongan.weiyixiao.entity.UserEntity;
 import com.yongan.weiyixiao.utils.ImageUtils;
+import com.yongan.weiyixiao.utils.ServiceName;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -118,10 +119,11 @@ public class ImageAdapter extends BaseAdapter {
 			convertView.setLayoutParams(localLayoutParams);
 			// String str = "http://115.28.17.18:8080/data/" + chanpin.id
 			// + "/small.jpg";
-			String str = "http://192.168.1.111:8080/DaManager/service/interface/download/"
-					+ chanpin.id + "/0?size=1";
-			// String str = "http://192.168.1.111:8080/DaManager/uploadfile/"
-			// + chanpin.id + "/0_small.jpg";
+			// String str =
+			// "http://192.168.1.111:8080/DaManager/service/interface/download/"
+			// + chanpin.id + "/0?size=1";
+			String str = ServiceName.downloadUrl + "/" + chanpin.id
+					+ "/0?size=1";
 			holder.img1.setTag(str);
 			holder.img1.setImageResource(R.drawable.bg);
 			setWidth = holder.img1.getDrawable().getIntrinsicWidth();
@@ -146,12 +148,22 @@ public class ImageAdapter extends BaseAdapter {
 				bundle.putString("data", new Gson().toJson(localGalleryData));
 				intent.putExtras(bundle);
 				context.startActivity(intent);
-
-				// context.switchXiangQing(chanpin);
-				// Toast.makeText(context, "点击了详情", Toast.LENGTH_LONG).show();
 			}
 		});
 
+		holder.img1.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, GalleryActivity.class);
+				Bundle bundle = new Bundle();
+				GalleryData galleryData = new GalleryData();
+				galleryData.cp = chanpin;
+				bundle.putString("data", new Gson().toJson(galleryData));
+				intent.putExtras(bundle);
+				context.startActivity(intent);
+			}
+		});
 		return convertView;
 	}
 

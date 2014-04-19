@@ -56,5 +56,6 @@
     <item name="txtLingShou" type="id"/>
     <item name="txtPrice" type="id"/>
     <item name="lvSourceList" type="id"/>
+    <item name="gallery_image" type="id"/>
 
 </resources>

@@ -82,7 +82,6 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 								getApp().getUuid(),
 								((ChanPinData) data).cp.id.toString(),
 								ChanPinActivity.this, "downLoadHandler");
-//						downLoadHandler("{\"code\":0,\"msg\":\"\"}");
 					} else {
 						progressDialog = ProgressDialog.show(
 								ChanPinActivity.this, "请稍等...", "正在获取商品数据...",

@@ -24,23 +24,10 @@ public class ImagerLoad extends Thread {
 	// sy表示水印
 	public void run() {
 		try {
-			// URL localURL = new URL(this.context.getApp().getUrl()
-			// + "service/showPic.do?cpid=" + this.dh + "&index="
-			// + this.index);
-			//
-			// URL localURL = new URL(
-			// "http://weiyixiao.aliapp.com/service/interface/download/"
-			// + this.dh + "/" + this.index);
-			//
-			// URL url = new URL(
-			// "http://weiyixiao.oss-cn-qingdao.aliyuncs.com/2014-04-02%281%29.jpg");
-			URL url = new URL(context.getApp().getUrl() + "download/" + this.dh
-					+ "/" + this.index);
-//			URL url = new URL("http://192.168.1.111:8080/DaManager/uploadfile/"
-//					+ this.dh + "/0_small.jpg");
-			if ((this.context.getApp().getOpenSy().equals("1"))) {
-				url = new URL(context.getApp().getUrl() + "download/" + this.dh
-						+ "/" + this.index + "?shuiyin=1");
+			URL url = new URL(ServiceName.downloadUrl + "/" + dh + "/" + index);
+			if ((context.getApp().getOpenSy().equals("1"))) {
+				url = new URL(ServiceName.downloadUrl + "/" + dh + "/" + index
+						+ "?shuiyin=1");
 			}
 			if (!this.imageFile.exists()) {
 				HttpURLConnection httpURLConnection = (HttpURLConnection) ((URL) url)
@@ -50,7 +37,7 @@ public class ImagerLoad extends Thread {
 				InputStream localInputStream = httpURLConnection
 						.getInputStream();
 				DisplayMetrics localDisplayMetrics = new DisplayMetrics();
-				this.context.getWindowManager().getDefaultDisplay()
+				context.getWindowManager().getDefaultDisplay()
 						.getMetrics(localDisplayMetrics);
 				this.imageFile.createNewFile();
 				FileOutputStream localFileOutputStream = new FileOutputStream(
@@ -61,15 +48,12 @@ public class ImagerLoad extends Thread {
 				localFileOutputStream.close();
 				localInputStream.close();
 			}
-			Message localMessage2 = this.handler.obtainMessage();
-			localMessage2.arg1 = this.index;
-			this.handler.sendMessage(localMessage2);
-			return;
-
-		} catch (Exception e) {
 			Message message = this.handler.obtainMessage();
 			message.arg1 = this.index;
 			this.handler.sendMessage(message);
+			return;
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

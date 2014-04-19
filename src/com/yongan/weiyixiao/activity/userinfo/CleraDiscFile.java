@@ -5,7 +5,7 @@ import java.io.File;
 import android.app.ProgressDialog;
 import android.widget.Toast;
 
-import com.yongan.weiyixiao.utils.WritePic;
+import com.yongan.weiyixiao.utils.FileTools;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CleraDiscFile extends Thread {
@@ -19,7 +19,7 @@ public class CleraDiscFile extends Thread {
 
 	public void run() {
 		ImageLoader.getInstance().clearDiscCache();
-		File localFile = new File(WritePic.sdkUrl);
+		File localFile = new File(FileTools.FILE_PATH);
 		final File[] files;
 		if (localFile.exists()) {
 			files = localFile.listFiles();
