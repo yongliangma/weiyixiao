@@ -45,7 +45,8 @@ public class LoaderActivity extends BaseActivity {
 			getApp().setUuid(ToolUtils.getIMEI(getApplicationContext()));
 		}
 		// getApp().setUrl("http://115.28.17.18:8080/");
-		getApp().setUrl("http://weiyixiao.aliapp.com/service/interface/");
+//		getApp().setUrl("http://weiyixiao.aliapp.com/service/interface/");
+		getApp().setUrl("http://192.168.1.111:8080/DaManager/service/interface/");
 		readConfig();
 	}
 

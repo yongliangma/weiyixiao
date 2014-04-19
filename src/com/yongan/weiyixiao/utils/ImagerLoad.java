@@ -31,15 +31,16 @@ public class ImagerLoad extends Thread {
 			// URL localURL = new URL(
 			// "http://weiyixiao.aliapp.com/service/interface/download/"
 			// + this.dh + "/" + this.index);
-
-			URL localURL = new URL(
-					"http://weiyixiao.oss-cn-qingdao.aliyuncs.com/2014-04-02%281%29.jpg");
-			Object url = localURL;
-			if ((this.context.getApp().getOpenSy().equals("1"))
-					&& (Integer.valueOf(this.dh).intValue() > 13697)) {
-				url = new URL(this.context.getApp().getUrl()
-						+ "service/showPic.do?cpid=" + this.dh + "&index="
-						+ this.index + "&shuiyin=1");
+			//
+			// URL url = new URL(
+			// "http://weiyixiao.oss-cn-qingdao.aliyuncs.com/2014-04-02%281%29.jpg");
+			URL url = new URL(context.getApp().getUrl() + "download/" + this.dh
+					+ "/" + this.index);
+//			URL url = new URL("http://192.168.1.111:8080/DaManager/uploadfile/"
+//					+ this.dh + "/0_small.jpg");
+			if ((this.context.getApp().getOpenSy().equals("1"))) {
+				url = new URL(context.getApp().getUrl() + "download/" + this.dh
+						+ "/" + this.index + "?shuiyin=1");
 			}
 			if (!this.imageFile.exists()) {
 				HttpURLConnection httpURLConnection = (HttpURLConnection) ((URL) url)

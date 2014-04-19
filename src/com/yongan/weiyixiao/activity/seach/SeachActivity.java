@@ -66,8 +66,8 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		setContentView(R.layout.activity_seach);
 
 		if (savedInstanceState != null) {
-			data = ((SeachData) new Gson().fromJson(savedInstanceState.getString("data"),
-					SeachData.class));
+			data = ((SeachData) new Gson().fromJson(
+					savedInstanceState.getString("data"), SeachData.class));
 		} else {
 			data = new SeachData();
 		}
@@ -178,6 +178,32 @@ public class SeachActivity extends BaseActivity<SeachData> {
 	private void initSpinnerData(List<?> list, Spinner spinner, int tag) {
 		try {
 			ArrayList<CItem> al = new ArrayList<CItem>();
+			switch (tag) {
+			case 1:
+				al.add(new CItem(-1, "选择产品品质"));
+				break;
+			case 2:
+				al.add(new CItem(-1, "选择包包类型"));
+				break;
+
+			case 3:
+				al.add(new CItem(-1, "选择手表机芯"));
+				break;
+			case 4:
+				al.add(new CItem(-1, "选择服装类型"));
+				break;
+			case 9:
+				al.add(new CItem(-1, "选择鞋子类型"));
+				break;
+			case 10:
+				al.add(new CItem(-1, "选择手表表带"));
+				break;
+			case 12:
+				al.add(new CItem(-1, "选择彩妆类型"));
+				break;
+			default:
+				break;
+			}
 			for (int i = 0; i < list.size(); i++) {
 				Object object = list.get(i);
 				Field field1 = object.getClass().getField("id");
@@ -259,12 +285,12 @@ public class SeachActivity extends BaseActivity<SeachData> {
 	// 点击 清除所选属性
 	public void clearClick(View view) {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.shuxingLayout);
-		for (int i = 0; i < ll.getChildCount(); ++i) {
+		for (int i = 0; i < ll.getChildCount(); i++) {
 			((Spinner) ll.getChildAt(i)).setSelection(0);
 		}
-		this.spRenQun.setSelection(0);
-		this.spPinPai.setSelection(0);
-		this.spService.setSelection(0);
+		spRenQun.setSelection(0);
+		spPinPai.setSelection(0);
+		spService.setSelection(0);
 	}
 
 	// 点击查询结果 响应的方法
@@ -274,33 +300,50 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		getApp().setViewFontSize(localView, 20);
 		progressDialog.setCancelable(true);
 		progressDialog.setIcon(R.drawable.ic_launcher);
-		String str = txtid.getText().toString().trim();
-		if (OurApplication.isNumeric(str)) {
+		String strId = txtid.getText().toString().trim();
+		if (OurApplication.isNumeric(strId)) {
 			HashMap<String, String> hashmap = new HashMap<String, String>();
-			hashmap.put("cpid", str);
+			hashmap.put("cpid", strId);
 			ChanPinService.getInstans().getChanPinById(getApp().getUname(),
 					getApp().getUuid(), hashmap, this, "chanPinHandler");
 		} else {
+			String strMioashu = txtid.getText().toString().trim();
 			((SeachData) this.data).mapData = new HashMap<String, String>();
 			((SeachData) this.data).mapData.put("page", "0");
-			((SeachData) this.data).mapData.put("lx",
+			((SeachData) this.data).mapData.put("leixing",
 					((SeachData) this.data).lx.id.toString());
-			((SeachData) this.data).mapData.put("xb", String
+			((SeachData) this.data).mapData.put("xingbie", String
 					.valueOf(((CItem) spRenQun.getSelectedItem()).getId()));
-			((SeachData) this.data).mapData.put("ss", String
+			((SeachData) this.data).mapData.put("shouhou", String
 					.valueOf(((CItem) spService.getSelectedItem()).getId()));
-			((SeachData) this.data).mapData.put("pp", String
+			((SeachData) this.data).mapData.put("pinpai", String
 					.valueOf(((CItem) spPinPai.getSelectedItem()).getId()));
-			((SeachData) this.data).mapData.put("text", getShuxings());
-			if (!"".equals(str))
-				((SeachData) this.data).mapData.put("miaoshu", str);
+//			((SeachData) this.data).mapData.put("text", getShuxings());加上其他属性
+			((SeachData) this.data).mapData.put("bagquality", String
+					.valueOf(((CItem) spBq.getSelectedItem()).getId()));//产品品质
+			((SeachData) this.data).mapData.put("bagtype", String
+					.valueOf(((CItem) spBt.getSelectedItem()).getId()));//包包类型
+			((SeachData) this.data).mapData.put("shoestype", String
+					.valueOf(((CItem) spSt.getSelectedItem()).getId()));//鞋子类型
+			((SeachData) this.data).mapData.put("watchjixin", String
+					.valueOf(((CItem) spChip.getSelectedItem()).getId()));//手表机芯
+			((SeachData) this.data).mapData.put("watchband", String
+					.valueOf(((CItem) spWatchband.getSelectedItem()).getId()));//手表表带
+			((SeachData) this.data).mapData.put("clothingtype", String
+					.valueOf(((CItem) spCt.getSelectedItem()).getId()));//衣服类型
+			((SeachData) this.data).mapData.put("makeuptype", String
+					.valueOf(((CItem) spMakeupType.getSelectedItem()).getId()));//护肤彩妆类型
+			
+			
+			if (!"".equals(strMioashu))
+				((SeachData) this.data).mapData.put("miaoshu", strMioashu);
 			ChanPinService.getInstans().getChanPin(getApp().getUname(),
 					getApp().getUuid(), ((SeachData) this.data).mapData, this,
 					"chanPinHandler");
 		}
 	}
 
-	// 点击筛选条件查询 响应的方法
+	// 点击筛选条件查询 响应的方法，和点击”查询结果“字符非id的话 是一样的请求
 	public void findChanPinCodition(View paramView) {
 		progressDialog = ProgressDialog.show(this, "请稍等...", "获取商品列表...", true);
 		View localView = progressDialog.getWindow().getDecorView();
@@ -314,8 +357,8 @@ public class SeachActivity extends BaseActivity<SeachData> {
 				((SeachData) this.data).lx.id.toString());
 		((SeachData) this.data).mapData.put("xb", String
 				.valueOf(((CItem) this.spRenQun.getSelectedItem()).getId()));
-		((SeachData) this.data).mapData.put("ss", String
-				.valueOf(((CItem) spService.getSelectedItem()).getId()));
+		((SeachData) this.data).mapData.put("ss",
+				String.valueOf(((CItem) spService.getSelectedItem()).getId()));
 		((SeachData) this.data).mapData.put("pp", String
 				.valueOf(((CItem) this.spPinPai.getSelectedItem()).getId()));
 		((SeachData) this.data).mapData.put("text", getShuxings());
@@ -328,8 +371,8 @@ public class SeachActivity extends BaseActivity<SeachData> {
 
 	public void chanPinHandler(String jsonString) {
 		progressDialog.dismiss();
-		SeacheVo sv = (SeacheVo) new Gson().fromJson(jsonString,
-				SeacheVo.class);
+		SeacheVo sv = (SeacheVo) new Gson()
+				.fromJson(jsonString, SeacheVo.class);
 		if (sv.code == 0) {
 			if (sv.cps.size() > 0) {
 				Intent intent = new Intent(this, ChanPinActivity.class);
@@ -386,7 +429,7 @@ public class SeachActivity extends BaseActivity<SeachData> {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	class ClassButton extends RelativeLayout {
 		private ImageView imageView;
 		private LeiXing lx;

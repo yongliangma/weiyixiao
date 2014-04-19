@@ -147,7 +147,7 @@ public class OurApplication extends Application {
 	}
 
 	public String getOpenSy() {
-		return getSharedPreferences("userinfo", 0).getString("openSy", "");
+		return getSharedPreferences("userinfo", 0).getString("openSy", "0");
 	}
 
 	public String getPsd() {

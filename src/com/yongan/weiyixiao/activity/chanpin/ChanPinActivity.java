@@ -20,16 +20,17 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.yongan.weiyixiao.R;
 import com.yongan.weiyixiao.activity.BaseActivity;
 import com.yongan.weiyixiao.entity.ChanPin;
 import com.yongan.weiyixiao.entity.PinPai;
 import com.yongan.weiyixiao.entity.UserEntity;
 import com.yongan.weiyixiao.service.ChanPinService;
+import com.yongan.weiyixiao.service.UserService;
 import com.yongan.weiyixiao.utils.WritePic;
 import com.yongan.weiyixiao.vo.ObjectVo;
 import com.yongan.weiyixiao.vo.SeacheVo;
-import com.google.gson.Gson;
 
 public class ChanPinActivity extends BaseActivity<ChanPinData> {
 	public Handler handler = new Handler();
@@ -77,13 +78,11 @@ public class ChanPinActivity extends BaseActivity<ChanPinData> {
 						progressDialog.setCancelable(true);
 						progressDialog.setIcon(R.drawable.ic_launcher);
 
-						// UserService.getInstans().downLoad(
-						// getApp().getUname(),
-						// getApp().getUuid(),
-						// ((ChanPinData) data).cp.id
-						// .toString(), ChanPinActivity.this,
-						// "downLoadHandler");
-						downLoadHandler("{\"code\":0,\"msg\":\"\"}");
+						UserService.getInstans().downLoad(getApp().getUname(),
+								getApp().getUuid(),
+								((ChanPinData) data).cp.id.toString(),
+								ChanPinActivity.this, "downLoadHandler");
+//						downLoadHandler("{\"code\":0,\"msg\":\"\"}");
 					} else {
 						progressDialog = ProgressDialog.show(
 								ChanPinActivity.this, "请稍等...", "正在获取商品数据...",

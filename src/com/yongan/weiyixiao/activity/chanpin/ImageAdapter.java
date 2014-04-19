@@ -118,7 +118,10 @@ public class ImageAdapter extends BaseAdapter {
 			convertView.setLayoutParams(localLayoutParams);
 			// String str = "http://115.28.17.18:8080/data/" + chanpin.id
 			// + "/small.jpg";
-			String str = "http://a.hiphotos.baidu.com/image/w%3D2048/sign=617f368d952bd40742c7d4fd4fb19f51/4b90f603738da97751492e8eb251f8198618e335.jpg";
+			String str = "http://192.168.1.111:8080/DaManager/service/interface/download/"
+					+ chanpin.id + "/0?size=1";
+			// String str = "http://192.168.1.111:8080/DaManager/uploadfile/"
+			// + chanpin.id + "/0_small.jpg";
 			holder.img1.setTag(str);
 			holder.img1.setImageResource(R.drawable.bg);
 			setWidth = holder.img1.getDrawable().getIntrinsicWidth();
