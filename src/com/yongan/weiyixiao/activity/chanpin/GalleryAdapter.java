@@ -58,7 +58,7 @@ public class GalleryAdapter extends BaseAdapter {
 		// 设置所有图片的资源地址
 		view.setImageBitmap(image);
 		view.setScaleType(ImageView.ScaleType.FIT_XY);
-		view.setLayoutParams(new Gallery.LayoutParams(dm.widthPixels, dm.heightPixels*3/8));
+		view.setLayoutParams(new Gallery.LayoutParams(dm.widthPixels, dm.heightPixels/2));
 		/* 设置Gallery背景图 */
 		return view;
 	}

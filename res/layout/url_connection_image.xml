@@ -77,7 +77,8 @@
                 android:paddingTop="5.0dip"
                 android:text="建议零售价：￥1500.00"
                 android:textColor="#ff767575"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@id/attrebuteLayout"

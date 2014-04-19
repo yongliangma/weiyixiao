@@ -196,11 +196,11 @@ public class ImageAdapter extends BaseAdapter {
 		}
 
 		if (paramUserEntity.qx.intValue() == 1)
-			str1 = "<b><font color=#1200ff>" + paramChanPin.dangkou
+			str1 = "<b><font color=#1200ff>" + paramChanPin.dangkouhaoname
 					+ "</font></b><br>" + paramChanPin.miaoshu;
 		if (paramUserEntity.qx.intValue() == 2)
 			str1 = "<b><font color=#1200ff>进价:" + paramChanPin.jiage + "   "
-					+ paramChanPin.dangkou + "</font></b><br>"
+					+ paramChanPin.dangkouhaoname + "</font></b><br>"
 					+ paramChanPin.miaoshu;
 		String str2;
 		if (paramChanPin.price.intValue() == 0) {

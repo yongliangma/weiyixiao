@@ -1,24 +1,33 @@
 package com.yongan.weiyixiao.activity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.yongan.weiyixiao.activity.source.SourceUserVo;
 import com.yongan.weiyixiao.entity.LeiXing;
 import com.yongan.weiyixiao.entity.Link;
 import com.yongan.weiyixiao.entity.PinPai;
 import com.yongan.weiyixiao.entity.XingBie;
+import com.yongan.weiyixiao.entity.clazz.BagQuality;
+import com.yongan.weiyixiao.entity.clazz.BagType;
+import com.yongan.weiyixiao.entity.clazz.Chip;
+import com.yongan.weiyixiao.entity.clazz.ClothingType;
+import com.yongan.weiyixiao.entity.clazz.MakeupType;
+import com.yongan.weiyixiao.entity.clazz.Service;
+import com.yongan.weiyixiao.entity.clazz.ShoesType;
+import com.yongan.weiyixiao.entity.clazz.Watchband;
 import com.yongan.weiyixiao.utils.Config;
 import com.yongan.weiyixiao.vo.LoginVo;
-import com.google.gson.Gson;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class OurApplication extends Application {
 	public static OurApplication instanse;
@@ -77,14 +86,122 @@ public class OurApplication extends Application {
 
 	public LeiXing findLeiXing(Integer paramInteger) {
 		Iterator localIterator = this.loginVo.baseData.lxs.iterator();
-		LeiXing localLeiXing = null;
+		LeiXing lx = null;
 		while (localIterator.hasNext()) {
-			localLeiXing = (LeiXing) localIterator.next();
-			if (localLeiXing.id.equals(paramInteger)) {
-				return localLeiXing;
+			lx = (LeiXing) localIterator.next();
+			if (lx.id.equals(paramInteger)) {
+				return lx;
 			}
 		}
-		return localLeiXing;
+		return lx;
+	}
+
+	public Service findServiceById(Integer paramInteger) {
+		Iterator localIterator = this.loginVo.baseData.ss.iterator();
+		Service ss = null;
+		while (localIterator.hasNext()) {
+			ss = (Service) localIterator.next();
+			if (ss.id.equals(paramInteger)) {
+				return ss;
+			}
+		}
+		return ss;
+	}
+
+	public ShoesType findShoestypeById(Integer paramInteger) {
+		Iterator localIterator = this.loginVo.baseData.sts.iterator();
+		ShoesType st = null;
+		while (localIterator.hasNext()) {
+			st = (ShoesType) localIterator.next();
+			if (st.id.equals(paramInteger)) {
+				return st;
+			}
+		}
+		return st;
+	}
+
+	public Chip findChipById(Integer paramInteger) {
+		Iterator localIterator = this.loginVo.baseData.cs.iterator();
+		Chip chip = null;
+		while (localIterator.hasNext()) {
+			chip = (Chip) localIterator.next();
+			if (chip.id.equals(paramInteger)) {
+				return chip;
+			}
+		}
+		return chip;
+	}
+
+	public Watchband findWatchbandById(Integer paramInteger) {
+		Iterator localIterator = this.loginVo.baseData.ws.iterator();
+		Watchband wb = null;
+		while (localIterator.hasNext()) {
+			wb = (Watchband) localIterator.next();
+			if (wb.id.equals(paramInteger)) {
+				return wb;
+			}
+		}
+		return wb;
+	}
+
+	public BagQuality findBagQualityById(Integer paramInteger) {
+		Iterator localIterator = this.loginVo.baseData.bqs.iterator();
+		BagQuality bq = null;
+		while (localIterator.hasNext()) {
+			bq = (BagQuality) localIterator.next();
+			if (bq.id.equals(paramInteger)) {
+				return bq;
+			}
+		}
+		return bq;
+	}
+
+	public BagType findBagTypeById(Integer paramInteger) {
+		Iterator localIterator = this.loginVo.baseData.bts.iterator();
+		BagType bt = null;
+		while (localIterator.hasNext()) {
+			bt = (BagType) localIterator.next();
+			if (bt.id.equals(paramInteger)) {
+				return bt;
+			}
+		}
+		return bt;
+	}
+
+	public ClothingType findClothingtypeById(Integer paramInteger) {
+		Iterator localIterator = this.loginVo.baseData.cts.iterator();
+		ClothingType ct = null;
+		while (localIterator.hasNext()) {
+			ct = (ClothingType) localIterator.next();
+			if (ct.id.equals(paramInteger)) {
+				return ct;
+			}
+		}
+		return ct;
+	}
+
+	public MakeupType findMakeuptypeById(Integer paramInteger) {
+		Iterator localIterator = this.loginVo.baseData.mts.iterator();
+		MakeupType mt = null;
+		while (localIterator.hasNext()) {
+			mt = (MakeupType) localIterator.next();
+			if (mt.id.equals(paramInteger)) {
+				return mt;
+			}
+		}
+		return mt;
+	}
+
+	public String getLinkStr(String paramString) {
+		Iterator localIterator = this.loginVo.baseData.links.iterator();
+		String str = "<font color=#ff0000>未知</font>";
+		while (localIterator.hasNext()) {
+			Link lin = (Link) localIterator.next();
+			if (lin.name.equals(paramString)) {
+				str = lin.link;
+			}
+		}
+		return str;
 	}
 
 	public XingBie findXingBie(Integer paramInteger) {
